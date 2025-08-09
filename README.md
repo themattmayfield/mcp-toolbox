@@ -132,24 +132,41 @@ bun run test
 
 ## 🔧 Configuration
 
-### Claude Desktop Integration
+### MCP Client Integration
+
+#### Claude Desktop
 
 Add your servers to `claude_desktop_config.json`:
+
+**macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`  
+**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
-    "weather": {
-      "command": "node",
-      "args": ["/path/to/mcp-toolbox/packages/weather-server/build/index.js"]
-    },
     "my-server": {
       "command": "node", 
       "args": ["/path/to/mcp-toolbox/packages/my-server/build/index.js"]
+    },
+    "weather": {
+      "command": "node",
+      "args": ["/path/to/mcp-toolbox/packages/weather-server/build/index.js"]
     }
   }
 }
 ```
+
+#### Cursor
+
+Add to your MCP settings using the same command and arguments format.
+
+#### opencode
+
+Add to your MCP configuration using the same command and arguments format.
+
+#### Windsurf
+
+Configure in your MCP settings using the same command and arguments format.
 
 ### TypeScript Configuration
 

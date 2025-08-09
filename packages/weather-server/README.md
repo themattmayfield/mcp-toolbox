@@ -10,31 +10,78 @@ A Model Context Protocol server that provides weather data using the National We
 
 ## Installation
 
+Install globally via NPM:
+
 ```bash
-bun install
-bun run build
+npm install -g @mcp-toolbox/weather-server
 ```
 
 ## Usage
 
-### As a standalone server
-```bash
-bun run start
-```
+### Claude Desktop
 
-### In Claude Desktop
 Add to your `claude_desktop_config.json`:
+
+**macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`  
+**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
     "weather": {
-      "command": "node",
-      "args": ["/path/to/mcp-toolbox/packages/weather-server/build/index.js"]
+      "command": "weather-mcp-server"
     }
   }
 }
 ```
+
+### Cursor
+
+Add to your MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "weather": {
+      "command": "weather-mcp-server"
+    }
+  }
+}
+```
+
+### opencode
+
+Add to your MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "weather": {
+      "command": "weather-mcp-server"
+    }
+  }
+}
+```
+
+### Windsurf
+
+Configure in your MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "weather": {
+      "command": "weather-mcp-server"
+    }
+  }
+}
+```
+
+### Other MCP Clients
+
+For any MCP-compatible client, use:
+- **Command:** `weather-mcp-server`
+- **Arguments:** None required
 
 ## Available Tools
 

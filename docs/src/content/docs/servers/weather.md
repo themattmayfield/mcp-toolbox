@@ -13,20 +13,76 @@ The Weather Server provides weather data for US locations using the National Wea
 
 ## Installation
 
-Add to your MCP client configuration. For Claude Desktop:
+Install globally via NPM:
+
+```bash
+npm install -g @mcp-toolbox/weather-server
+```
+
+### Claude Desktop
+
+Add to your `claude_desktop_config.json`:
+
+**macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`  
+**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
     "weather": {
-      "command": "node",
-      "args": ["/path/to/mcp-toolbox/packages/weather-server/build/index.js"]
+      "command": "weather-mcp-server"
     }
   }
 }
 ```
 
-For other MCP clients (OpenCode, Claude Code, Cursor), refer to their documentation for MCP server configuration using the same command and arguments.
+### Cursor
+
+Add to your MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "weather": {
+      "command": "weather-mcp-server"
+    }
+  }
+}
+```
+
+### opencode
+
+Add to your MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "weather": {
+      "command": "weather-mcp-server"
+    }
+  }
+}
+```
+
+### Windsurf
+
+Configure in your MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "weather": {
+      "command": "weather-mcp-server"
+    }
+  }
+}
+```
+
+### Other MCP Clients
+
+For any MCP-compatible client, use:
+- **Command:** `weather-mcp-server`
+- **Arguments:** None required
 
 ## Available Tools
 

@@ -23,16 +23,17 @@ Perfect for developers, DevOps engineers, and product managers who want to manag
 
 ## Installation
 
+Install globally via NPM:
+
 ```bash
-bun install
-bun run build
+npm install -g @mcp-toolbox/unleash-server
 ```
 
 ## Quick Setup
 
 ### Option 1: Interactive Setup (Recommended)
 ```bash
-bun run setup
+unleash-server-setup
 ```
 
 This will guide you through connecting to your Unleash instances with a friendly interactive wizard.
@@ -86,20 +87,18 @@ You need **Admin API tokens** (or Service Account tokens) with the following per
 
 ## Usage
 
-### As a standalone server
-```bash
-bun run start
-```
+### Claude Desktop
 
-### In Claude Desktop
-The setup wizard will show you the exact configuration, but here's the basic format:
+Add to your `claude_desktop_config.json`:
+
+**macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`  
+**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
     "unleash": {
-      "command": "npx",
-      "args": ["@mcp-toolbox/unleash-server"]
+      "command": "unleash-server-mcp-server"
     }
   }
 }
@@ -110,8 +109,7 @@ Or with environment variables:
 {
   "mcpServers": {
     "unleash": {
-      "command": "npx",
-      "args": ["@mcp-toolbox/unleash-server"],
+      "command": "unleash-server-mcp-server",
       "env": {
         "UNLEASH_URL": "https://your-unleash.com",
         "UNLEASH_TOKEN": "your-admin-token"
@@ -120,6 +118,55 @@ Or with environment variables:
   }
 }
 ```
+
+### Cursor
+
+Add to your MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "unleash": {
+      "command": "unleash-server-mcp-server"
+    }
+  }
+}
+```
+
+### opencode
+
+Add to your MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "unleash": {
+      "command": "unleash-server-mcp-server"
+    }
+  }
+}
+```
+
+### Windsurf
+
+Configure in your MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "unleash": {
+      "command": "unleash-server-mcp-server"
+    }
+  }
+}
+```
+
+### Other MCP Clients
+
+For any MCP-compatible client, use:
+- **Command:** `unleash-server-mcp-server`
+- **Arguments:** None required
+- **Setup Command:** `unleash-server-setup` (for initial configuration)
 
 ## Interactive Setup Walkthrough
 

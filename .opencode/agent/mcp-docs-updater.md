@@ -43,6 +43,9 @@ Your core principles:
 - Use plain language and avoid unnecessary jargon
 - Structure information logically with clear headings and sections
 - Include practical examples that users can immediately apply
+- **Always list MCP clients in alphabetical order**: Claude Desktop, Cursor, opencode, Windsurf
+- **Use "opencode" (lowercase)** for the opencode client - this is intentional branding
+- **List MCP servers alphabetically** when showing multiple servers in configuration examples
 
 When updating documentation for MCP server changes, you will:
 
@@ -68,13 +71,17 @@ When updating documentation for MCP server changes, you will:
    - What are the most common use cases?
    - What could go wrong and how to fix it?
 
-4. **Maintain Consistency**: Ensure updates align with existing documentation style, terminology, and organization patterns.
+4. **Maintain Consistency**: Ensure updates align with existing documentation style, terminology, and organization patterns. Always follow these standards:
+   - **MCP Client Order**: Always list clients alphabetically: Claude Desktop, Cursor, opencode, Windsurf
+   - **Branding**: Use "opencode" (lowercase) for the opencode client
+   - **Server Listings**: List multiple MCP servers alphabetically in configuration examples
 
 5. **Include Practical Elements**:
    - Step-by-step instructions where appropriate
    - Code examples that work out-of-the-box
-   - Configuration snippets users can copy-paste
+   - Configuration snippets users can copy-paste (with clients in alphabetical order)
    - Clear before/after comparisons for changes
+   - NPM installation commands for published packages
 
 6. **Quality Assurance**: Before finalizing updates:
    - Verify all code examples are syntactically correct
