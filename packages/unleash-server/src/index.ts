@@ -141,7 +141,7 @@ function getEnvironmentName(
 	instance: UnleashInstance,
 	environment?: string,
 ): string | undefined {
-	// If no environment specified, use the instance's default
+	// If no environment specified, use the instance's default environment
 	if (!environment) {
 		return instance.defaultEnvironment;
 	}
@@ -181,12 +181,24 @@ async function makeUnleashRequest<T>(
 	});
 }
 
-function formatFeature(feature: UnleashFeature): string {
-	const status = feature.archived
-		? "🗄 ARCHIVED"
-		: feature.enabled
-			? "✅ ENABLED"
-			: "❌ DISABLED";
+function formatFeature(
+	feature: UnleashFeature,
+	filterEnvironment?: string,
+): string {
+	let status: string;
+
+	if (feature.archived) {
+		status = "🗄 ARCHIVED";
+	} else if (filterEnvironment) {
+		// When filtering by environment, show the environment-specific status
+		const envStatus = feature.environments.find(
+			(env) => env.name === filterEnvironment,
+		);
+		status = envStatus?.enabled ? "✅ ENABLED" : "❌ DISABLED";
+	} else {
+		// When not filtering, show global status
+		status = feature.enabled ? "✅ ENABLED" : "❌ DISABLED";
+	}
 
 	const envStatus = feature.environments
 		.map((env) => `${env.name}: ${env.enabled ? "✅" : "❌"}`)
@@ -201,28 +213,57 @@ function formatFeature(feature: UnleashFeature): string {
 		feature.lastSeenAt
 			? `Last seen: ${new Date(feature.lastSeenAt).toLocaleDateString()}`
 			: "",
-		feature.stale ? "! STALE" : "",
+		feature.stale ? "⚠️ STALE" : "",
 		"---",
 	]
 		.filter(Boolean)
 		.join("\n");
 }
 
-function formatFeatureList(features: UnleashFeature[]): string {
+function formatFeatureList(
+	features: UnleashFeature[],
+	filterEnvironment?: string,
+): string {
 	if (features.length === 0) {
 		return "No features found.";
 	}
 
+	// Calculate summary based on environment-specific status if filtering
+	let activeCount: number, disabledCount: number;
+
+	if (filterEnvironment) {
+		activeCount = features.filter((f) => {
+			if (f.archived) return false;
+			const envStatus = f.environments.find(
+				(env) => env.name === filterEnvironment,
+			);
+			return envStatus?.enabled || false;
+		}).length;
+
+		disabledCount = features.filter((f) => {
+			if (f.archived) return false;
+			const envStatus = f.environments.find(
+				(env) => env.name === filterEnvironment,
+			);
+			return !envStatus?.enabled;
+		}).length;
+	} else {
+		activeCount = features.filter((f) => !f.archived && f.enabled).length;
+		disabledCount = features.filter((f) => !f.archived && !f.enabled).length;
+	}
+
 	const summary = [
 		`Found ${features.length} feature flag(s):`,
-		`- Active: ${features.filter((f) => !f.archived && f.enabled).length}`,
-		`- Disabled: ${features.filter((f) => !f.archived && !f.enabled).length}`,
+		`- Active: ${activeCount}`,
+		`- Disabled: ${disabledCount}`,
 		`- Archived: ${features.filter((f) => f.archived).length}`,
 		`- Stale: ${features.filter((f) => f.stale).length}`,
 		"",
 	].join("\n");
 
-	const featureList = features.map(formatFeature).join("\n");
+	const featureList = features
+		.map((feature) => formatFeature(feature, filterEnvironment))
+		.join("\n");
 
 	return summary + featureList;
 }
@@ -341,10 +382,10 @@ async function main() {
 		},
 	);
 
-	// List all feature flags
+	// List feature flags (primary tool - uses default environment)
 	server.tool(
 		"list_features",
-		"List all feature flags in an Unleash instance",
+		"List feature flags in an Unleash instance. Uses the instance's default environment to show environment-specific status. This is the main tool for viewing feature flags.",
 		ListFeaturesSchema.shape,
 		async ({ instance, project, environment }) => {
 			try {
@@ -365,7 +406,7 @@ async function main() {
 					return createErrorResponse("Failed to fetch feature flags");
 				}
 
-				const formattedList = formatFeatureList(response.features);
+				const formattedList = formatFeatureList(response.features, envName);
 				const header = `Feature flags in ${instance} (${projectName} project)${envName ? ` - ${envName} environment` : ""}:\n\n`;
 
 				return createSuccessResponse(header + formattedList);
@@ -516,6 +557,42 @@ async function main() {
 				console.error("Error listing environments:", error);
 				return createErrorResponse(
 					`Failed to list environments: ${error instanceof Error ? error.message : "Unknown error"}`,
+				);
+			}
+		},
+	);
+
+	// List all feature flags across all environments (global view - rarely needed)
+	server.tool(
+		"list_all_features",
+		"List feature flags with global status across all environments. Only use this when you specifically need to see global feature flag status rather than environment-specific status.",
+		{
+			instance: InstanceNameSchema,
+			project: ProjectNameSchema,
+		},
+		async ({ instance, project }) => {
+			try {
+				const unleashInstance = getUnleashInstance(instance);
+				const projectName = getProjectName(unleashInstance, project);
+
+				const endpoint = `/projects/${projectName}/features`;
+
+				const response = await makeUnleashRequest<{
+					features: UnleashFeature[];
+				}>(unleashInstance, endpoint);
+
+				if (!response) {
+					return createErrorResponse("Failed to fetch feature flags");
+				}
+
+				const formattedList = formatFeatureList(response.features);
+				const header = `Feature flags in ${instance} (${projectName} project) - Global view across all environments:\n\n`;
+
+				return createSuccessResponse(header + formattedList);
+			} catch (error) {
+				console.error("Error listing all features:", error);
+				return createErrorResponse(
+					`Failed to list feature flags: ${error instanceof Error ? error.message : "Unknown error"}`,
 				);
 			}
 		},
