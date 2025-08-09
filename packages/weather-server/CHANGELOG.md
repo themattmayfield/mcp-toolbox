@@ -1,5 +1,15 @@
 # @mcp-toolbox/weather-server
 
+## 2.1.2
+
+### Patch Changes
+
+- d6afbaa: Add shebang lines to make binaries executable
+
+  - Add #!/usr/bin/env node to server entry points
+  - Fix setup script shebang to use node instead of bun
+  - This fixes execution issues when using the servers as CLI commands
+
 ## 2.1.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@mcp-toolbox/unleash-server",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"description": "MCP server for managing Unleash feature flags across multiple instances and environments",
 	"type": "module",
 	"main": "build/index.js",

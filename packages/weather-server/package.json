@@ -1,6 +1,6 @@
 {
 	"name": "@mcp-toolbox/weather-server",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"description": "MCP server for weather data using the National Weather Service API",
 	"type": "module",
 	"main": "build/index.js",
