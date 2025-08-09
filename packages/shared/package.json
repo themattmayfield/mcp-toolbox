@@ -1,0 +1,46 @@
+{
+	"name": "@mcp-toolbox/shared",
+	"version": "1.0.0",
+	"description": "Shared utilities and types for MCP servers",
+	"type": "module",
+	"main": "build/index.js",
+	"types": "build/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./build/index.d.ts",
+			"import": "./build/index.js"
+		},
+		"./types": {
+			"types": "./build/types.d.ts",
+			"import": "./build/types.js"
+		},
+		"./utils": {
+			"types": "./build/utils.d.ts",
+			"import": "./build/utils.js"
+		}
+	},
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch",
+		"typecheck": "tsc --noEmit",
+		"clean": "rm -rf build"
+	},
+	"files": [
+		"build",
+		"README.md"
+	],
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "^1.17.2",
+		"zod": "^3.25.76"
+	},
+	"devDependencies": {
+		"@types/node": "^24.2.1",
+		"typescript": "^5"
+	},
+	"keywords": [
+		"mcp",
+		"shared",
+		"utilities",
+		"types"
+	]
+}

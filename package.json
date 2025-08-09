@@ -1,0 +1,42 @@
+{
+	"name": "mcp-toolbox",
+	"version": "1.0.0",
+	"description": "A collection of MCP (Model Context Protocol) servers",
+	"type": "module",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"build": "bun run --filter='*' build",
+		"dev": "bun run --filter='*' dev",
+		"lint": "bun biome check",
+		"lint:fix": "bun biome check --write",
+		"typecheck": "bun run --filter='*' typecheck",
+		"clean": "bun run --filter='*' clean",
+		"test": "bun run --filter='*' test",
+		"create-server": "bun tools/create-server.ts"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.1.4",
+		"@types/bun": "latest",
+		"@types/node": "^24.2.1",
+		"typescript": "^5"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/your-username/mcp-toolbox.git"
+	},
+	"keywords": [
+		"mcp",
+		"model-context-protocol",
+		"ai",
+		"tools",
+		"monorepo"
+	],
+	"author": "Your Name",
+	"license": "MIT"
+}

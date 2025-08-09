@@ -1,0 +1,37 @@
+{
+	"name": "@mcp-toolbox/weather-server",
+	"version": "1.0.0",
+	"description": "MCP server for weather data using the National Weather Service API",
+	"type": "module",
+	"main": "build/index.js",
+	"bin": {
+		"weather-mcp-server": "./build/index.js"
+	},
+	"scripts": {
+		"build": "tsc && chmod 755 build/index.js",
+		"dev": "bun --watch src/index.ts",
+		"start": "bun build/index.js",
+		"typecheck": "tsc --noEmit",
+		"clean": "rm -rf build"
+	},
+	"files": [
+		"build",
+		"README.md"
+	],
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "^1.17.2",
+		"@mcp-toolbox/shared": "workspace:*",
+		"zod": "^3.25.76"
+	},
+	"devDependencies": {
+		"@types/node": "^24.2.1",
+		"typescript": "^5"
+	},
+	"keywords": [
+		"mcp",
+		"weather",
+		"nws",
+		"forecast",
+		"alerts"
+	]
+}
