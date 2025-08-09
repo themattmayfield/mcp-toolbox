@@ -14,13 +14,8 @@ export default defineConfig({
 				ThemeSelect: "./src/components/ThemeSelect.astro",
 			},
 			sidebar: [
-				{
-					label: "Getting Started",
-					items: [
-						{ label: "Intro", slug: "index" },
-						{ label: "Quick Start", slug: "getting-started" },
-					],
-				},
+				{ label: "Intro", slug: "index" },
+				{ label: "Quick Start", slug: "getting-started" },
 				{
 					label: "MCP Servers",
 					items: [

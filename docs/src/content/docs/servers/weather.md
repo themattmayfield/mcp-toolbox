@@ -1,17 +1,23 @@
 ---
 title: Weather Server
-description: Get weather information using the National Weather Service API
+description: The Weather Server provides weather data for US locations using the National Weather Service API. Get weather alerts and detailed forecasts without requiring any API keys.
 ---
 
-The Weather Server provides weather data for US locations using the National Weather Service API.
+**Name:** Weather MCP Server
 
-## Features
+## Description
 
-- Get weather alerts for any US state
-- Get detailed weather forecasts for any location (US only)
-- No API key required (uses free NWS API)
+The Weather Server provides weather data for US locations using the National Weather Service API. Get weather alerts and detailed forecasts without requiring any API keys.
 
-## Installation
+## Key Concepts
+
+**US Locations Only**: This server uses the National Weather Service API, which only provides data for US locations.
+
+**No API Key Required**: The NWS API is free and doesn't require authentication, making setup simple and reliable.
+
+## Quick Setup
+
+### 1. Installation
 
 Install globally via NPM:
 
@@ -19,7 +25,9 @@ Install globally via NPM:
 npm install -g @mcp-toolbox/weather-server
 ```
 
-### Claude Desktop
+### 2. Add to Your MCP Client
+
+#### Claude Desktop
 
 Add to your `claude_desktop_config.json`:
 
@@ -87,22 +95,32 @@ For any MCP-compatible client, use:
 ## Available Tools
 
 ### get_alerts
-
-Get weather alerts for a US state.
+**Purpose**: Get weather alerts for a US state  
+**When to use**: Check for severe weather warnings, watches, or advisories
 
 **Parameters:**
-- `state` (string): Two-letter state code (e.g., "CA", "NY")
+- `state` (required): Two-letter state code (e.g., "CA", "NY")
+
+```
+get_alerts state="CA"
+get_alerts state="TX"
+```
 
 **Example usage:**
 > "Are there any weather alerts for California?"
 
 ### get_forecast
-
-Get weather forecast for a location.
+**Purpose**: Get detailed weather forecast for a specific location  
+**When to use**: Get current conditions and multi-day forecasts for any US location
 
 **Parameters:**
-- `latitude` (number): Latitude of the location (-90 to 90)
-- `longitude` (number): Longitude of the location (-180 to 180)
+- `latitude` (required): Latitude of the location (-90 to 90)
+- `longitude` (required): Longitude of the location (-180 to 180)
+
+```
+get_forecast latitude=37.7749 longitude=-122.4194
+get_forecast latitude=40.7128 longitude=-74.0060
+```
 
 **Example usage:**
 > "What's the weather forecast for San Francisco?" (Claude will look up coordinates)

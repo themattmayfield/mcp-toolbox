@@ -23,18 +23,4 @@ These MCP servers work with any client that supports the Model Context Protocol,
 - **Weather Server** - Get weather information for any location
 - **Unleash Server** - Manage feature flags and toggles
 
-## Quick Start
-
-```bash
-# Clone the repository
-git clone https://github.com/your-username/mcp-toolbox
-cd mcp-toolbox
-
-# Install dependencies
-bun install
-
-# Build all servers
-bun run build
-```
-
-Add servers to your MCP client configuration and start using them immediately.
+Get started by installing any server and adding it to your MCP client configuration.

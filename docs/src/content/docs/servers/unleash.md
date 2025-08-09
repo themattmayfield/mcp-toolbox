@@ -1,7 +1,11 @@
 ---
 title: Unleash Server
-description: Manage Unleash feature flags from Claude Desktop
+description: The Unleash Server lets you manage feature flags across multiple Unleash instances and environments directly from your MCP-compatible client. Perfect for controlling feature rollouts, A/B testing, and managing deployments across different environments.
 ---
+
+**Name:** Unleash MCP Server
+
+## Description
 
 The Unleash Server lets you manage feature flags across multiple Unleash instances and environments directly from your MCP-compatible client. Perfect for controlling feature rollouts, A/B testing, and managing deployments across different environments.
 
@@ -29,17 +33,7 @@ The wizard will:
 - Generate the configuration automatically
 - Show you how to add it to Claude Desktop
 
-### 2. Manual Configuration
-
-Alternatively, set environment variables:
-
-```bash
-export UNLEASH_URL=https://your-unleash.com
-export UNLEASH_TOKEN=your-admin-token
-export UNLEASH_PROJECT=default
-```
-
-### 3. Add to Your MCP Client
+### 2. Add to Your MCP Client
 
 #### Claude Desktop
 
@@ -109,169 +103,59 @@ For any MCP-compatible client, use:
 
 ## Available Tools
 
-### list_instances
-**Purpose**: Show all configured Unleash instances  
-**When to use**: Start here to see what instances are available
+#### `list_instances`
+**What it does:** Shows all your configured Unleash servers
 
-```
-list_instances
-```
+**When to use:** 
+- First time using the server to see what's available
+- When you forget the exact name of an instance
 
-**Example output**:
-```
-Available Unleash instances:
+#### `list_features`
+**What it does:** Lists feature flags and their current status across environments
 
-**production**
-  URL: https://unleash.company.com
-  Default Project: default
+**When to use:** 
+- See what features exist and their current status
+- Main tool for viewing features in your Unleash instance
 
-**staging**
-  URL: https://staging-unleash.company.com
-  Default Project: default
-```
+#### `create_feature`
+**What it does:** Creates a new feature flag
 
-### list_features
-**Purpose**: List feature flags (main tool for viewing features)  
-**When to use**: See what features exist and their current status
+**When to use:** 
+- Adding new features that need controlled rollout
+- Setting up A/B tests or experiments
 
-**Parameters:**
-- `instance` (required): Which Unleash instance to query
-- `project` (optional): Filter by project name
-- `environment` (optional): Show status for specific environment
+#### `toggle_feature`
+**What it does:** Enables or disables a feature in a specific environment
 
-```
-list_features instance="production"
-list_features instance="staging" environment="development"
-```
+**When to use:** 
+- Rolling out features to different environments
+- Turning off features that are causing issues
 
-**Example output**:
-```
-Feature flags in production (default project):
+#### `get_feature_status`
+**What it does:** Gets detailed information about a specific feature flag
 
-Found 3 feature flag(s):
-- Active: 2
-- Disabled: 1
-- Archived: 0
-- Stale: 0
+**When to use:** 
+- Need comprehensive details about one particular feature
+- Checking the configuration and status of a feature
 
-**new-checkout-flow** (release) ✅ ENABLED
-Description: New streamlined checkout process
-Project: default
-Environments: development: ✅, staging: ✅, production: ❌
-Created: 12/15/2023
----
+#### `archive_feature`
+**What it does:** Archives (soft deletes) a feature flag
 
-**dark-mode** (release) ❌ DISABLED
-Project: default
-Environments: development: ✅, staging: ❌, production: ❌
-Created: 12/10/2023
----
-```
+**When to use:** 
+- Feature is no longer needed but you want to keep history
+- Cleaning up old features without permanently deleting them
 
-### create_feature
-**Purpose**: Create a new feature flag  
-**When to use**: Adding new features that need controlled rollout
+#### `list_environments`
+**What it does:** Shows available environments for an Unleash instance
 
-**Parameters:**
-- `instance` (required): Which Unleash instance
-- `name` (required): Feature flag name
-- `description` (optional): What this feature does
-- `type` (optional): Type of flag (release, experiment, operational, kill-switch, permission)
-- `project` (optional): Project name (uses instance default if not specified)
+**When to use:** 
+- See what environments you can deploy features to
+- Understanding your deployment pipeline structure
 
-```
-create_feature instance="staging" name="new-payment-method" description="Support for Apple Pay"
-create_feature instance="production" name="emergency-maintenance" type="kill-switch"
-```
+#### `list_all_features`
+**What it does:** Provides a global view of all features across environments
 
-**What happens**: Creates the feature and automatically disables it in all environments for safety.
-
-### toggle_feature
-**Purpose**: Enable or disable a feature in a specific environment  
-**When to use**: Rolling out features or turning them off
-
-**Parameters:**
-- `instance` (required): Which Unleash instance
-- `name` (required): Feature flag name
-- `environment` (required): Which environment to change
-- `enabled` (required): true to enable, false to disable
-- `project` (optional): Project name
-
-```
-toggle_feature instance="staging" name="new-checkout-flow" environment="development" enabled=true
-toggle_feature instance="production" name="dark-mode" environment="production" enabled=false
-```
-
-### get_feature_status
-**Purpose**: Get detailed information about a specific feature  
-**When to use**: Need comprehensive details about one feature
-
-**Parameters:**
-- `instance` (required): Which Unleash instance
-- `name` (required): Feature flag name
-- `project` (optional): Project name
-- `environment` (optional): Show detailed environment info
-
-```
-get_feature_status instance="production" name="new-checkout-flow"
-get_feature_status instance="staging" name="dark-mode" environment="development"
-```
-
-### archive_feature
-**Purpose**: Archive (soft delete) a feature flag  
-**When to use**: Feature is no longer needed but you want to keep history
-
-**Parameters:**
-- `instance` (required): Which Unleash instance
-- `name` (required): Feature flag name
-- `project` (optional): Project name
-
-```
-archive_feature instance="production" name="old-legacy-feature"
-```
-
-**Note**: Archived features are hidden but can be restored if needed.
-
-### list_environments
-**Purpose**: Show available environments for an instance  
-**When to use**: See what environments you can deploy to
-
-**Parameters:**
-- `instance` (required): Which Unleash instance
-- `project` (optional): Project name
-
-```
-list_environments instance="production"
-```
-
-**Example output**:
-```
-Environments in production (default project):
-
-**development** (development)
-  Status: ✅ Enabled
-  Protected: 🔓 No
-
-**staging** (production)
-  Status: ✅ Enabled
-  Protected: 🔒 Yes
-
-**production** (production)
-  Status: ✅ Enabled
-  Protected: 🔒 Yes
-```
-
-### list_all_features
-**Purpose**: Global view of all features across environments  
-**When to use**: Advanced use - need to see global feature status (rarely needed)
-
-**Parameters:**
-- `instance` (required): Which Unleash instance
-- `project` (optional): Project name
-
-```
-list_all_features instance="production"
-```
-
-**Note**: Most of the time you want `list_features` instead, which shows environment-specific status.
+**When to use:** 
+- Advanced use cases requiring global feature overview
+- Most of the time you'll want `list_features` instead
 
