@@ -4,17 +4,30 @@ export async function makeApiRequest<T>(
 	url: string,
 	options: ApiRequestOptions = {},
 ): Promise<T | null> {
-	const { headers = {}, timeout = 10000, retries = 3 } = options;
+	const {
+		headers = {},
+		timeout = 10000,
+		retries = 3,
+		method = "GET",
+		body,
+	} = options;
 
 	for (let attempt = 1; attempt <= retries; attempt++) {
 		try {
 			const controller = new AbortController();
 			const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-			const response = await fetch(url, {
+			const fetchOptions: RequestInit = {
+				method,
 				headers,
 				signal: controller.signal,
-			});
+			};
+
+			if (body) {
+				fetchOptions.body = body;
+			}
+
+			const response = await fetch(url, fetchOptions);
 
 			clearTimeout(timeoutId);
 
@@ -22,7 +35,14 @@ export async function makeApiRequest<T>(
 				throw new Error(`HTTP error! status: ${response.status}`);
 			}
 
-			return (await response.json()) as T;
+			// Handle empty responses (like DELETE requests)
+			const contentType = response.headers.get("content-type");
+			if (contentType && contentType.includes("application/json")) {
+				return (await response.json()) as T;
+			} else {
+				// Return a generic success response for non-JSON responses
+				return {} as T;
+			}
 		} catch (error) {
 			console.error(`API request attempt ${attempt} failed:`, error);
 

@@ -18,6 +18,8 @@ export interface ApiRequestOptions {
 	headers?: Record<string, string>;
 	timeout?: number;
 	retries?: number;
+	method?: string;
+	body?: string;
 }
 
 export const CoordinatesSchema = z.object({

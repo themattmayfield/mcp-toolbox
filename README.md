@@ -9,6 +9,7 @@ mcp-toolbox/
 ├── packages/
 │   ├── shared/           # Common utilities and types
 │   ├── weather-server/   # Weather data MCP server
+│   ├── unleash-server/   # Unleash feature flags MCP server
 │   └── [your-servers]/   # Your custom MCP servers
 ├── tools/               # Development and build tools
 ├── docs/               # Documentation
@@ -56,6 +57,24 @@ bun run start
 **Tools:**
 - `get_alerts` - Get weather alerts for US states
 - `get_forecast` - Get weather forecasts for coordinates
+
+### Unleash Server
+Manage Unleash feature flags across multiple instances and environments.
+
+```bash
+cd packages/unleash-server
+bun run build
+bun run start
+```
+
+**Tools:**
+- `list_instances` - List configured Unleash instances
+- `create_feature` - Create new feature flags
+- `archive_feature` - Archive feature flags
+- `list_features` - List all feature flags with filtering
+- `get_feature_status` - Get detailed feature flag status
+- `toggle_feature` - Enable/disable features in environments
+- `list_environments` - List available environments
 
 ## 🛠️ Development
 
