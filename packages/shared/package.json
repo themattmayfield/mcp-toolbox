@@ -3,7 +3,6 @@
 	"version": "2.1.0",
 	"description": "Shared utilities and types for MCP servers",
 	"type": "module",
-	"private": true,
 	"main": "build/index.js",
 	"types": "build/index.d.ts",
 	"exports": {

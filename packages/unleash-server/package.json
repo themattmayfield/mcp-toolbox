@@ -35,7 +35,7 @@
 		"url": "https://github.com/themattmayfield/mcp-toolbox/issues"
 	},
 	"dependencies": {
-		"@mcp-toolbox/shared": "workspace:*",
+		"@mcp-toolbox/shared": "^2.0.0",
 		"@modelcontextprotocol/sdk": "^1.17.2",
 		"@types/inquirer": "^9.0.9",
 		"inquirer": "^12.9.1",
