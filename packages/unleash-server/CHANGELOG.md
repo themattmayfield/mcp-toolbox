@@ -1,5 +1,16 @@
 # @mcp-toolbox/unleash-server
 
+## 2.1.0
+
+### Minor Changes
+
+- d121c21: Updated installation guides
+
+### Patch Changes
+
+- Updated dependencies [d121c21]
+  - @mcp-toolbox/shared@2.1.0
+
 ## 2.0.0
 
 ### Major Changes
