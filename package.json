@@ -15,7 +15,10 @@
 		"typecheck": "bun run --filter='*' typecheck",
 		"clean": "bun run --filter='*' clean",
 		"test": "bun run --filter='*' test",
-		"create-server": "bun tools/create-server.ts"
+		"create-server": "bun tools/create-server.ts",
+		"docs:dev": "cd docs && bun run dev",
+		"docs:build": "cd docs && bun run build",
+		"docs:preview": "cd docs && bun run preview"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.1.4",

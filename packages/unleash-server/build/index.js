@@ -1,22 +1,21 @@
-import { createMcpServer, createSuccessResponse, createErrorResponse, makeApiRequest, } from "@mcp-toolbox/shared";
+import { createErrorResponse, createMcpServer, createSuccessResponse, makeApiRequest, } from "@mcp-toolbox/shared";
 import { z } from "zod";
-// Hardcoded configuration for now (will be made configurable later)
-const UNLEASH_CONFIG = {
-    instances: [
-        {
-            name: "production",
-            url: "https://your-unleash-instance.com",
-            token: "your-admin-token-here",
-            project: "default",
-        },
-        {
-            name: "staging",
-            url: "https://staging-unleash-instance.com",
-            token: "your-staging-admin-token-here",
-            project: "default",
-        },
-    ],
-};
+import { loadConfig, } from "./config.js";
+
+// Load configuration from environment or config file
+let UNLEASH_CONFIG;
+try {
+    UNLEASH_CONFIG = loadConfig();
+}
+catch (error) {
+    console.error("❌ Configuration Error:", error instanceof Error ? error.message : error);
+    console.log("\n💡 To set up your Unleash instances, run:");
+    console.log("   bun run setup");
+    console.log("\nOr set environment variables:");
+    console.log("   export UNLEASH_URL=https://your-unleash.com");
+    console.log("   export UNLEASH_TOKEN=your-admin-token");
+    process.exit(1);
+}
 // Validation schemas
 const InstanceNameSchema = z
     .string()
@@ -85,15 +84,15 @@ async function makeUnleashRequest(instance, endpoint, options = {}) {
             Authorization: instance.token,
             "Content-Type": "application/json",
         },
-        timeout: 10000,
-        retries: 3,
+        timeout: instance.timeout || 10000,
+        retries: instance.retries || 3,
         method,
         body: body ? JSON.stringify(body) : undefined,
     });
 }
 function formatFeature(feature) {
     const status = feature.archived
-        ? "🗄️ ARCHIVED"
+        ? "🗄 ARCHIVED"
         : feature.enabled
             ? "✅ ENABLED"
             : "❌ DISABLED";
@@ -109,7 +108,7 @@ function formatFeature(feature) {
         feature.lastSeenAt
             ? `Last seen: ${new Date(feature.lastSeenAt).toLocaleDateString()}`
             : "",
-        feature.stale ? "⚠️ STALE" : "",
+        feature.stale ? "! STALE" : "",
         "---",
     ]
         .filter(Boolean)
@@ -190,7 +189,7 @@ async function main() {
             if (!result) {
                 return createErrorResponse("Failed to archive feature flag");
             }
-            return createSuccessResponse(`🗄️ Feature flag '${name}' archived successfully in ${instance} (${projectName} project)`);
+            return createSuccessResponse(`🗄 Feature flag '${name}' archived successfully in ${instance} (${projectName} project)`);
         }
         catch (error) {
             console.error("Error archiving feature:", error);

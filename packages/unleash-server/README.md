@@ -22,27 +22,51 @@ bun install
 bun run build
 ```
 
-## Configuration
+## Quick Setup
 
-Currently, the server uses hardcoded configuration (interactive configuration coming soon). Edit the `UNLEASH_CONFIG` in `src/index.ts`:
+### Option 1: Interactive Setup (Recommended)
+```bash
+bun run setup
+```
 
-```typescript
-const UNLEASH_CONFIG: UnleashConfig = {
-  instances: [
+This will guide you through connecting to your Unleash instances with a friendly interactive wizard.
+
+### Option 2: Environment Variables
+```bash
+# Single instance
+export UNLEASH_URL=https://your-unleash.com
+export UNLEASH_TOKEN=your-admin-token
+
+# Multiple instances
+export UNLEASH_INSTANCES='[
+  {
+    "name": "production",
+    "url": "https://your-unleash.com",
+    "token": "your-admin-token",
+    "project": "default"
+  },
+  {
+    "name": "staging",
+    "url": "https://staging-unleash.com", 
+    "token": "staging-token",
+    "project": "default"
+  }
+]'
+```
+
+### Option 3: Config File
+Create `~/.config/mcp-toolbox/unleash.json`:
+```json
+{
+  "instances": [
     {
-      name: "production",
-      url: "https://your-unleash-instance.com",
-      token: "your-admin-token-here", // Admin API token
-      project: "default", // Default project
-    },
-    {
-      name: "staging", 
-      url: "https://staging-unleash-instance.com",
-      token: "your-staging-admin-token-here",
-      project: "default",
-    },
-  ],
-};
+      "name": "production",
+      "url": "https://your-unleash.com",
+      "token": "your-admin-token",
+      "project": "default"
+    }
+  ]
+}
 ```
 
 ### API Token Requirements
@@ -62,18 +86,52 @@ bun run start
 ```
 
 ### In Claude Desktop
-Add to your `claude_desktop_config.json`:
+The setup wizard will show you the exact configuration, but here's the basic format:
 
 ```json
 {
   "mcpServers": {
     "unleash": {
-      "command": "node",
-      "args": ["/path/to/mcp-toolbox/packages/unleash-server/build/index.js"]
+      "command": "npx",
+      "args": ["@mcp-toolbox/unleash-server"]
     }
   }
 }
 ```
+
+Or with environment variables:
+```json
+{
+  "mcpServers": {
+    "unleash": {
+      "command": "npx",
+      "args": ["@mcp-toolbox/unleash-server"],
+      "env": {
+        "UNLEASH_URL": "https://your-unleash.com",
+        "UNLEASH_TOKEN": "your-admin-token"
+      }
+    }
+  }
+}
+```
+
+## Interactive Setup Walkthrough
+
+When you run `bun run setup`, you'll be guided through:
+
+1. **🔍 Configuration Detection** - Checks for existing config
+2. **📋 Instance Setup** - Add your Unleash instances one by one
+3. **🔗 Connection Testing** - Validates URLs and API tokens
+4. **📊 Discovery** - Shows available projects and environments  
+5. **💾 Save Options** - Choose how to save your configuration
+6. **📋 Next Steps** - Get your Claude Desktop config
+
+The setup wizard will:
+- ✅ Test connections in real-time
+- ✅ Validate API tokens and permissions
+- ✅ Discover projects and environments
+- ✅ Generate Claude Desktop configuration
+- ✅ Provide helpful error messages and recovery options
 
 ## Available Tools
 
@@ -295,3 +353,53 @@ This server uses the [Unleash Admin API](https://docs.getunleash.io/reference/ap
 - `POST /api/admin/projects/{projectId}/features/{featureName}/environments/{environment}/on` - Enable feature
 - `POST /api/admin/projects/{projectId}/features/{featureName}/environments/{environment}/off` - Disable feature
 - `GET /api/admin/projects/{projectId}/environments` - List environments
+
+## Troubleshooting
+
+### Configuration Issues
+
+**"No Unleash configuration found"**
+- Run `bun run setup` to configure your instances
+- Or set environment variables: `UNLEASH_URL` and `UNLEASH_TOKEN`
+- Check that config file exists at `~/.config/mcp-toolbox/unleash.json`
+
+**"Authentication failed - check your API token"**
+- Ensure you're using an **Admin API token** or **Service Account token**
+- Check token hasn't expired in Unleash admin UI
+- Verify token has correct permissions (create, read, update features)
+
+**"Connection timeout - check your URL and network"**
+- Verify Unleash URL is correct and accessible
+- Check if you're behind a corporate firewall
+- Ensure URL includes protocol (https://)
+
+### Setup Issues
+
+**Setup wizard won't start**
+- Make sure you've run `bun install` and `bun run build`
+- Check that inquirer dependency is installed
+- Try running `bun src/setup.ts` directly
+
+**Can't save configuration**
+- Check write permissions for `~/.config/mcp-toolbox/`
+- Try saving as environment variables instead
+- Ensure directory exists: `mkdir -p ~/.config/mcp-toolbox`
+
+### Runtime Issues
+
+**"Unknown Unleash instance"**
+- Check instance name matches configuration exactly
+- Run `list_instances` to see available instances
+- Verify configuration loaded correctly
+
+**"Failed to retrieve features"**
+- Check API token permissions
+- Verify project name exists in Unleash
+- Check network connectivity to Unleash server
+
+### Getting Help
+
+1. **Check Configuration**: Run `list_instances` to verify setup
+2. **Test Connection**: Use the setup wizard's connection test
+3. **Check Logs**: Look for error messages in console output
+4. **Verify Permissions**: Ensure API token has required permissions

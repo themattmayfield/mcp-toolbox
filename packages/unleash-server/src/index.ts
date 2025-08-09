@@ -1,22 +1,15 @@
 import {
+	createErrorResponse,
 	createMcpServer,
 	createSuccessResponse,
-	createErrorResponse,
 	makeApiRequest,
 } from "@mcp-toolbox/shared";
 import { z } from "zod";
-
-// Configuration types
-interface UnleashInstance {
-	name: string;
-	url: string;
-	token: string;
-	project?: string; // Default project
-}
-
-interface UnleashConfig {
-	instances: UnleashInstance[];
-}
+import {
+	loadConfig,
+	type UnleashConfig,
+	type UnleashInstance,
+} from "./config.js";
 
 // API Response types
 interface UnleashFeature {
@@ -43,23 +36,23 @@ interface UnleashEnvironment {
 	sortOrder: number;
 }
 
-// Hardcoded configuration for now (will be made configurable later)
-const UNLEASH_CONFIG: UnleashConfig = {
-	instances: [
-		{
-			name: "production",
-			url: "https://your-unleash-instance.com",
-			token: "your-admin-token-here",
-			project: "default",
-		},
-		{
-			name: "staging",
-			url: "https://staging-unleash-instance.com",
-			token: "your-staging-admin-token-here",
-			project: "default",
-		},
-	],
-};
+// Load configuration from environment or config file
+let UNLEASH_CONFIG: UnleashConfig;
+
+try {
+	UNLEASH_CONFIG = loadConfig();
+} catch (error) {
+	console.error(
+		"❌ Configuration Error:",
+		error instanceof Error ? error.message : error,
+	);
+	console.log("\n💡 To set up your Unleash instances, run:");
+	console.log("   bun run setup");
+	console.log("\nOr set environment variables:");
+	console.log("   export UNLEASH_URL=https://your-unleash.com");
+	console.log("   export UNLEASH_TOKEN=your-admin-token");
+	process.exit(1);
+}
 
 // Validation schemas
 const InstanceNameSchema = z
@@ -152,8 +145,8 @@ async function makeUnleashRequest<T>(
 			Authorization: instance.token,
 			"Content-Type": "application/json",
 		},
-		timeout: 10000,
-		retries: 3,
+		timeout: instance.timeout || 10000,
+		retries: instance.retries || 3,
 		method,
 		body: body ? JSON.stringify(body) : undefined,
 	});

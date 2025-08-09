@@ -1,0 +1,64 @@
+/* Force dark theme always */
+:root,
+html,
+html[data-theme="light"],
+html[data-theme="auto"],
+html[data-theme="dark"] {
+	color-scheme: dark !important;
+}
+
+/* Hide theme selector completely */
+starlight-theme-select,
+.theme-select,
+[data-theme-select] {
+	display: none !important;
+	visibility: hidden !important;
+}
+
+/* Clean, simple styling */
+.hero {
+	text-align: center;
+	padding: 2rem 1rem;
+}
+
+.hero h1 {
+	font-size: 2.5rem;
+	font-weight: 600;
+	margin-bottom: 1rem;
+}
+
+.hero p {
+	font-size: 1.1rem;
+	color: var(--sl-color-gray-6);
+	max-width: 600px;
+	margin: 0 auto 2rem;
+}
+
+/* Clean navigation */
+.sidebar-content {
+	padding: 1rem;
+}
+
+/* Simple code blocks */
+pre {
+	border-radius: 6px;
+	border: 1px solid var(--sl-color-gray-3);
+}
+
+/* Clean tables */
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th,
+td {
+	border: 1px solid var(--sl-color-gray-3);
+	padding: 0.75rem;
+	text-align: left;
+}
+
+th {
+	background-color: var(--sl-color-gray-1);
+	font-weight: 600;
+}
