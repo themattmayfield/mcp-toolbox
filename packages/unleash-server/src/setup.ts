@@ -35,6 +35,8 @@ interface SetupAnswers {
 	url: string;
 	token: string;
 	project: string;
+	environments?: string[];
+	defaultEnvironment?: string;
 }
 
 interface ConnectionTestResult {
@@ -200,9 +202,50 @@ class InteractiveSetup {
 				console.log(
 					`📊 Found ${testResult.environments.length} environments: ${testResult.environments.join(", ")}`,
 				);
+
+				// Ask user to select environments they want to work with
+				const environmentAnswers = await inquirer.prompt({
+					type: "checkbox",
+					name: "selectedEnvironments",
+					message: "Which environments do you want to use with this instance?",
+					choices: testResult.environments.map((env) => ({
+						name: env,
+						value: env,
+						checked: true,
+					})),
+					validate: (input: any) => {
+						if (!input || input.length === 0)
+							return "Please select at least one environment";
+						return true;
+					},
+				});
+
+				answers.environments = environmentAnswers.selectedEnvironments;
+
+				// Ask for default environment
+				if (environmentAnswers.selectedEnvironments.length > 1) {
+					const { defaultEnv } = await inquirer.prompt({
+						type: "list",
+						name: "defaultEnv",
+						message:
+							"Which should be the default environment for this instance?",
+						choices: environmentAnswers.selectedEnvironments,
+						default: environmentAnswers.selectedEnvironments.includes(
+							"development",
+						)
+							? "development"
+							: environmentAnswers.selectedEnvironments[0],
+					});
+					answers.defaultEnvironment = defaultEnv;
+				} else {
+					answers.defaultEnvironment =
+						environmentAnswers.selectedEnvironments[0];
+				}
+
+				console.log(`🎯 Default environment: ${answers.defaultEnvironment}`);
 			}
 			if (testResult.tokenExpiry) {
-				console.log(`!  Warning: Token expires ${testResult.tokenExpiry}`);
+				console.log(`⚠️  Warning: Token expires ${testResult.tokenExpiry}`);
 			}
 		} else {
 			console.log(`❌ Connection failed: ${testResult.error}`);
@@ -229,6 +272,8 @@ class InteractiveSetup {
 			url: answers.url,
 			token: answers.token.trim(),
 			project: answers.project.trim() || "default",
+			environments: answers.environments,
+			defaultEnvironment: answers.defaultEnvironment,
 		});
 
 		console.log("");
@@ -351,6 +396,12 @@ class InteractiveSetup {
 			console.log(`Instance: ${instance.name}`);
 			console.log(`  URL: ${instance.url}`);
 			console.log(`  Project: ${instance.project}`);
+			if (instance.environments && instance.environments.length > 0) {
+				console.log(`  Environments: ${instance.environments.join(", ")}`);
+			}
+			if (instance.defaultEnvironment) {
+				console.log(`  Default Environment: ${instance.defaultEnvironment}`);
+			}
 			console.log(`  Status: ✅ Ready\n`);
 		}
 

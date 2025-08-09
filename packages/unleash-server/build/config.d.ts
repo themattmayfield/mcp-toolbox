@@ -6,6 +6,8 @@ export declare const UnleashInstanceSchema: z.ZodObject<{
     project: z.ZodDefault<z.ZodString>;
     timeout: z.ZodDefault<z.ZodNumber>;
     retries: z.ZodDefault<z.ZodNumber>;
+    environments: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
+    defaultEnvironment: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     name: string;
     url: string;
@@ -13,6 +15,8 @@ export declare const UnleashInstanceSchema: z.ZodObject<{
     project: string;
     timeout: number;
     retries: number;
+    environments?: string[] | undefined;
+    defaultEnvironment?: string | undefined;
 }, {
     name: string;
     url: string;
@@ -20,6 +24,8 @@ export declare const UnleashInstanceSchema: z.ZodObject<{
     project?: string | undefined;
     timeout?: number | undefined;
     retries?: number | undefined;
+    environments?: string[] | undefined;
+    defaultEnvironment?: string | undefined;
 }>;
 export declare const UnleashConfigSchema: z.ZodObject<{
     instances: z.ZodArray<z.ZodObject<{
@@ -29,6 +35,8 @@ export declare const UnleashConfigSchema: z.ZodObject<{
         project: z.ZodDefault<z.ZodString>;
         timeout: z.ZodDefault<z.ZodNumber>;
         retries: z.ZodDefault<z.ZodNumber>;
+        environments: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
+        defaultEnvironment: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
         name: string;
         url: string;
@@ -36,6 +44,8 @@ export declare const UnleashConfigSchema: z.ZodObject<{
         project: string;
         timeout: number;
         retries: number;
+        environments?: string[] | undefined;
+        defaultEnvironment?: string | undefined;
     }, {
         name: string;
         url: string;
@@ -43,6 +53,8 @@ export declare const UnleashConfigSchema: z.ZodObject<{
         project?: string | undefined;
         timeout?: number | undefined;
         retries?: number | undefined;
+        environments?: string[] | undefined;
+        defaultEnvironment?: string | undefined;
     }>, "many">;
 }, "strip", z.ZodTypeAny, {
     instances: {
@@ -52,6 +64,8 @@ export declare const UnleashConfigSchema: z.ZodObject<{
         project: string;
         timeout: number;
         retries: number;
+        environments?: string[] | undefined;
+        defaultEnvironment?: string | undefined;
     }[];
 }, {
     instances: {
@@ -61,6 +75,8 @@ export declare const UnleashConfigSchema: z.ZodObject<{
         project?: string | undefined;
         timeout?: number | undefined;
         retries?: number | undefined;
+        environments?: string[] | undefined;
+        defaultEnvironment?: string | undefined;
     }[];
 }>;
 export type UnleashInstance = z.infer<typeof UnleashInstanceSchema>;

@@ -11,6 +11,14 @@ export const UnleashInstanceSchema = z.object({
 	project: z.string().default("default"),
 	timeout: z.number().default(10000),
 	retries: z.number().default(3),
+	environments: z
+		.array(z.string())
+		.optional()
+		.describe("Available environments for this instance"),
+	defaultEnvironment: z
+		.string()
+		.optional()
+		.describe("Default environment to use for this instance"),
 });
 
 export const UnleashConfigSchema = z.object({

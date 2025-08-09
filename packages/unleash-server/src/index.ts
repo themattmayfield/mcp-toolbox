@@ -137,6 +137,27 @@ function getProjectName(instance: UnleashInstance, project?: string): string {
 	return project || instance.project || "default";
 }
 
+function getEnvironmentName(
+	instance: UnleashInstance,
+	environment?: string,
+): string | undefined {
+	// If no environment specified, use the instance's default
+	if (!environment) {
+		return instance.defaultEnvironment;
+	}
+
+	// If instance has configured environments, validate the requested environment
+	if (instance.environments && instance.environments.length > 0) {
+		if (!instance.environments.includes(environment)) {
+			throw new Error(
+				`Environment '${environment}' is not configured for instance '${instance.name}'. Available environments: ${instance.environments.join(", ")}`,
+			);
+		}
+	}
+
+	return environment;
+}
+
 async function makeUnleashRequest<T>(
 	instance: UnleashInstance,
 	endpoint: string,
@@ -329,10 +350,11 @@ async function main() {
 			try {
 				const unleashInstance = getUnleashInstance(instance);
 				const projectName = getProjectName(unleashInstance, project);
+				const envName = getEnvironmentName(unleashInstance, environment);
 
 				let endpoint = `/projects/${projectName}/features`;
-				if (environment) {
-					endpoint += `?environment=${environment}`;
+				if (envName) {
+					endpoint += `?environment=${envName}`;
 				}
 
 				const response = await makeUnleashRequest<{
@@ -344,7 +366,7 @@ async function main() {
 				}
 
 				const formattedList = formatFeatureList(response.features);
-				const header = `Feature flags in ${instance} (${projectName} project)${environment ? ` - ${environment} environment` : ""}:\n\n`;
+				const header = `Feature flags in ${instance} (${projectName} project)${envName ? ` - ${envName} environment` : ""}:\n\n`;
 
 				return createSuccessResponse(header + formattedList);
 			} catch (error) {
@@ -365,6 +387,7 @@ async function main() {
 			try {
 				const unleashInstance = getUnleashInstance(instance);
 				const projectName = getProjectName(unleashInstance, project);
+				const envName = getEnvironmentName(unleashInstance, environment);
 
 				const feature = await makeUnleashRequest<UnleashFeature>(
 					unleashInstance,
@@ -380,14 +403,14 @@ async function main() {
 				let statusInfo = formatFeature(feature);
 
 				// If specific environment requested, show detailed environment status
-				if (environment) {
+				if (envName) {
 					const envData = await makeUnleashRequest(
 						unleashInstance,
-						`/projects/${projectName}/features/${name}/environments/${environment}`,
+						`/projects/${projectName}/features/${name}/environments/${envName}`,
 					);
 
 					if (envData) {
-						statusInfo += `\n\n**${environment} Environment Details:**\n`;
+						statusInfo += `\n\n**${envName} Environment Details:**\n`;
 						const featureEnv = envData as UnleashFeatureEnvironment;
 						statusInfo += `Status: ${featureEnv.enabled ? "✅ ENABLED" : "❌ DISABLED"}\n`;
 						if (featureEnv.strategies) {
@@ -415,6 +438,18 @@ async function main() {
 			try {
 				const unleashInstance = getUnleashInstance(instance);
 				const projectName = getProjectName(unleashInstance, project);
+
+				// Validate environment (required for toggle operations)
+				if (
+					unleashInstance.environments &&
+					unleashInstance.environments.length > 0
+				) {
+					if (!unleashInstance.environments.includes(environment)) {
+						return createErrorResponse(
+							`Environment '${environment}' is not configured for instance '${instance}'. Available environments: ${unleashInstance.environments.join(", ")}`,
+						);
+					}
+				}
 
 				const action = enabled ? "on" : "off";
 				const result = await makeUnleashRequest(
