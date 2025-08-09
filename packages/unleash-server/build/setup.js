@@ -2,7 +2,6 @@
 import { makeApiRequest } from "@mcp-toolbox/shared";
 import inquirer from "inquirer";
 import { generateClaudeDesktopConfig, generateEnvVariables, getUserConfigPath, loadConfigFromFile, saveConfigToFile, UnleashInstanceSchema, } from "./config.js";
-
 class InteractiveSetup {
     instances = [];
     async run() {
@@ -122,7 +121,11 @@ class InteractiveSetup {
         answers.url = answers.url.replace(/\/$/, "");
         // Test connection
         console.log("\n🔍 Testing connection...");
-        const testResult = await this.testConnection(answers);
+        const testResult = await this.testConnection({
+            url: answers.url,
+            token: answers.token,
+            project: answers.project,
+        });
         if (testResult.success) {
             console.log("✅ Connected successfully!");
             if (testResult.projects && testResult.projects.length > 0) {
@@ -132,7 +135,7 @@ class InteractiveSetup {
                 console.log(`📊 Found ${testResult.environments.length} environments: ${testResult.environments.join(", ")}`);
             }
             if (testResult.tokenExpiry) {
-                console.log(`⚠️  Warning: Token expires ${testResult.tokenExpiry}`);
+                console.log(`!  Warning: Token expires ${testResult.tokenExpiry}`);
             }
         }
         else {
@@ -149,7 +152,7 @@ class InteractiveSetup {
                 return this.setupInstance(type);
             }
             else {
-                console.log("⚠️  Continuing with untested configuration...");
+                console.log("!  Continuing with untested configuration...");
             }
         }
         // Validate and return instance
@@ -164,7 +167,7 @@ class InteractiveSetup {
     }
     async testConnection(instance) {
         try {
-            // Test basic connectivity and auth
+            // Test basic connectivity and auth by listing all projects
             const response = await makeApiRequest(`${instance.url}/api/admin/projects`, {
                 headers: {
                     Authorization: instance.token,
@@ -178,6 +181,22 @@ class InteractiveSetup {
             }
             // Extract project names
             const projects = response.projects?.map((p) => p.name || p.id) || [];
+            // Test access to the specific project that will be used
+            const projectName = instance.project || "default";
+            const projectResponse = await makeApiRequest(`${instance.url}/api/admin/projects/${projectName}`, {
+                headers: {
+                    Authorization: instance.token,
+                    "Content-Type": "application/json",
+                },
+                timeout: 10000,
+                retries: 1,
+            });
+            if (!projectResponse) {
+                return {
+                    success: false,
+                    error: `Cannot access project '${projectName}' - check project name and permissions`,
+                };
+            }
             // Try to get environments
             let environments = [];
             try {
@@ -285,11 +304,12 @@ class InteractiveSetup {
                 saveConfigToFile(config);
                 console.log(`\n✅ Configuration saved to ${getUserConfigPath()}`);
                 break;
-            case "env":
+            case "env": {
                 const envContent = generateEnvVariables(config);
-                require("fs").writeFileSync(".env", envContent);
+                require("node:fs").writeFileSync(".env", envContent);
                 console.log("\n✅ Configuration saved to .env file");
                 break;
+            }
             case "show-env":
                 console.log("\n📋 Environment Variables:");
                 console.log("```bash");
@@ -333,7 +353,11 @@ class InteractiveSetup {
         console.log("🔍 Testing all connections...\n");
         for (const instance of instances) {
             console.log(`Testing ${instance.name}...`);
-            const result = await this.testConnection(instance);
+            const result = await this.testConnection({
+                url: instance.url,
+                token: instance.token,
+                project: instance.project,
+            });
             if (result.success) {
                 console.log(`✅ ${instance.name}: Connected successfully`);
                 if (result.projects) {

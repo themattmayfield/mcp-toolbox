@@ -38,7 +38,6 @@ export function loadConfigFromFile() {
             }
             catch (error) {
                 console.error(`Error loading config from ${configPath}:`, error);
-                continue;
             }
         }
     }

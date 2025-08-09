@@ -36,6 +36,14 @@ interface UnleashEnvironment {
 	sortOrder: number;
 }
 
+interface UnleashFeatureEnvironment {
+	enabled: boolean;
+	strategies?: Array<{
+		name: string;
+		parameters?: Record<string, unknown>;
+	}>;
+}
+
 // Load configuration from environment or config file
 let UNLEASH_CONFIG: UnleashConfig;
 
@@ -134,7 +142,7 @@ async function makeUnleashRequest<T>(
 	endpoint: string,
 	options: {
 		method?: string;
-		body?: any;
+		body?: unknown;
 	} = {},
 ): Promise<T | null> {
 	const { method = "GET", body } = options;
@@ -380,9 +388,10 @@ async function main() {
 
 					if (envData) {
 						statusInfo += `\n\n**${environment} Environment Details:**\n`;
-						statusInfo += `Status: ${(envData as any).enabled ? "✅ ENABLED" : "❌ DISABLED"}\n`;
-						if ((envData as any).strategies) {
-							statusInfo += `Strategies: ${(envData as any).strategies.length} configured\n`;
+						const featureEnv = envData as UnleashFeatureEnvironment;
+						statusInfo += `Status: ${featureEnv.enabled ? "✅ ENABLED" : "❌ DISABLED"}\n`;
+						if (featureEnv.strategies) {
+							statusInfo += `Strategies: ${featureEnv.strategies.length} configured\n`;
 						}
 					}
 				}

@@ -37,7 +37,7 @@ export async function makeApiRequest<T>(
 
 			// Handle empty responses (like DELETE requests)
 			const contentType = response.headers.get("content-type");
-			if (contentType && contentType.includes("application/json")) {
+			if (contentType?.includes("application/json")) {
 				return (await response.json()) as T;
 			} else {
 				// Return a generic success response for non-JSON responses

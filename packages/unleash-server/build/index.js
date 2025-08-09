@@ -1,7 +1,6 @@
 import { createErrorResponse, createMcpServer, createSuccessResponse, makeApiRequest, } from "@mcp-toolbox/shared";
 import { z } from "zod";
 import { loadConfig, } from "./config.js";
-
 // Load configuration from environment or config file
 let UNLEASH_CONFIG;
 try {
@@ -233,9 +232,10 @@ async function main() {
                 const envData = await makeUnleashRequest(unleashInstance, `/projects/${projectName}/features/${name}/environments/${environment}`);
                 if (envData) {
                     statusInfo += `\n\n**${environment} Environment Details:**\n`;
-                    statusInfo += `Status: ${envData.enabled ? "✅ ENABLED" : "❌ DISABLED"}\n`;
-                    if (envData.strategies) {
-                        statusInfo += `Strategies: ${envData.strategies.length} configured\n`;
+                    const featureEnv = envData;
+                    statusInfo += `Status: ${featureEnv.enabled ? "✅ ENABLED" : "❌ DISABLED"}\n`;
+                    if (featureEnv.strategies) {
+                        statusInfo += `Strategies: ${featureEnv.strategies.length} configured\n`;
                     }
                 }
             }

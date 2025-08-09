@@ -13,6 +13,23 @@ import {
 	UnleashInstanceSchema,
 } from "./config.js";
 
+interface UnleashProject {
+	id: string;
+	name: string;
+}
+
+interface UnleashProjectsResponse {
+	projects: UnleashProject[];
+}
+
+interface UnleashEnvironment {
+	name: string;
+}
+
+interface UnleashEnvironmentsResponse {
+	environments: UnleashEnvironment[];
+}
+
 interface SetupAnswers {
 	name: string;
 	url: string;
@@ -166,7 +183,11 @@ class InteractiveSetup {
 
 		// Test connection
 		console.log("\n🔍 Testing connection...");
-		const testResult = await this.testConnection(answers);
+		const testResult = await this.testConnection({
+			url: answers.url,
+			token: answers.token,
+			project: answers.project,
+		});
 
 		if (testResult.success) {
 			console.log("✅ Connected successfully!");
@@ -181,7 +202,7 @@ class InteractiveSetup {
 				);
 			}
 			if (testResult.tokenExpiry) {
-				console.log(`⚠️  Warning: Token expires ${testResult.tokenExpiry}`);
+				console.log(`!  Warning: Token expires ${testResult.tokenExpiry}`);
 			}
 		} else {
 			console.log(`❌ Connection failed: ${testResult.error}`);
@@ -198,7 +219,7 @@ class InteractiveSetup {
 			if (retry) {
 				return this.setupInstance(type);
 			} else {
-				console.log("⚠️  Continuing with untested configuration...");
+				console.log("!  Continuing with untested configuration...");
 			}
 		}
 
@@ -215,11 +236,11 @@ class InteractiveSetup {
 	}
 
 	private async testConnection(
-		instance: Pick<UnleashInstance, "url" | "token">,
+		instance: Pick<UnleashInstance, "url" | "token"> & { project?: string },
 	): Promise<ConnectionTestResult> {
 		try {
-			// Test basic connectivity and auth
-			const response = await makeApiRequest<any>(
+			// Test basic connectivity and auth by listing all projects
+			const response = await makeApiRequest<UnleashProjectsResponse>(
 				`${instance.url}/api/admin/projects`,
 				{
 					headers: {
@@ -236,12 +257,33 @@ class InteractiveSetup {
 			}
 
 			// Extract project names
-			const projects = response.projects?.map((p: any) => p.name || p.id) || [];
+			const projects = response.projects?.map((p) => p.name || p.id) || [];
+
+			// Test access to the specific project that will be used
+			const projectName = instance.project || "default";
+			const projectResponse = await makeApiRequest(
+				`${instance.url}/api/admin/projects/${projectName}`,
+				{
+					headers: {
+						Authorization: instance.token,
+						"Content-Type": "application/json",
+					},
+					timeout: 10000,
+					retries: 1,
+				},
+			);
+
+			if (!projectResponse) {
+				return {
+					success: false,
+					error: `Cannot access project '${projectName}' - check project name and permissions`,
+				};
+			}
 
 			// Try to get environments
 			let environments: string[] = [];
 			try {
-				const envResponse = await makeApiRequest<any>(
+				const envResponse = await makeApiRequest<UnleashEnvironmentsResponse>(
 					`${instance.url}/api/admin/environments`,
 					{
 						headers: {
@@ -252,7 +294,7 @@ class InteractiveSetup {
 						retries: 1,
 					},
 				);
-				environments = envResponse?.environments?.map((e: any) => e.name) || [];
+				environments = envResponse?.environments?.map((e) => e.name) || [];
 			} catch {
 				// Environments endpoint might not be available, that's ok
 			}
@@ -364,7 +406,7 @@ class InteractiveSetup {
 
 			case "env": {
 				const envContent = generateEnvVariables(config);
-				require("fs").writeFileSync(".env", envContent);
+				require("node:fs").writeFileSync(".env", envContent);
 				console.log("\n✅ Configuration saved to .env file");
 				break;
 			}
@@ -426,7 +468,11 @@ class InteractiveSetup {
 
 		for (const instance of instances) {
 			console.log(`Testing ${instance.name}...`);
-			const result = await this.testConnection(instance);
+			const result = await this.testConnection({
+				url: instance.url,
+				token: instance.token,
+				project: instance.project,
+			});
 
 			if (result.success) {
 				console.log(`✅ ${instance.name}: Connected successfully`);
