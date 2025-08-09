@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { createErrorResponse, createMcpServer, createSuccessResponse, makeApiRequest, } from "@mcp-toolbox/shared";
 import { z } from "zod";
 import { loadConfig, } from "./config.js";

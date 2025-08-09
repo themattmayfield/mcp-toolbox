@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 import { makeApiRequest } from "@mcp-toolbox/shared";
 import inquirer from "inquirer";
 import { generateClaudeDesktopConfig, generateEnvVariables, getUserConfigPath, loadConfigFromFile, saveConfigToFile, UnleashInstanceSchema, } from "./config.js";

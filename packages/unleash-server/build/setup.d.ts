@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 declare class InteractiveSetup {
     private instances;
     run(): Promise<void>;
