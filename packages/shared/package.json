@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "Shared utilities and types for MCP servers",
 	"type": "module",
+	"private": true,
 	"main": "build/index.js",
 	"types": "build/index.d.ts",
 	"exports": {
@@ -29,6 +30,20 @@
 		"build",
 		"README.md"
 	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/themattmayfield/mcp-toolbox.git",
+		"directory": "packages/shared"
+	},
+	"author": "Matt Mayfield",
+	"license": "MIT",
+	"homepage": "https://github.com/themattmayfield/mcp-toolbox#readme",
+	"bugs": {
+		"url": "https://github.com/themattmayfield/mcp-toolbox/issues"
+	},
 	"dependencies": {
 		"@modelcontextprotocol/sdk": "^1.17.2",
 		"zod": "^3.25.76"
@@ -39,8 +54,17 @@
 	},
 	"keywords": [
 		"mcp",
+		"model-context-protocol",
 		"shared",
 		"utilities",
-		"types"
-	]
+		"types",
+		"ai",
+		"llm",
+		"tools",
+		"server",
+		"typescript"
+	],
+	"engines": {
+		"node": ">=18.0.0"
+	}
 }

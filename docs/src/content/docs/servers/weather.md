@@ -13,7 +13,7 @@ The Weather Server provides weather data for US locations using the National Wea
 
 ## Installation
 
-Add to your Claude Desktop configuration:
+Add to your MCP client configuration. For Claude Desktop:
 
 ```json
 {
@@ -25,6 +25,8 @@ Add to your Claude Desktop configuration:
   }
 }
 ```
+
+For other MCP clients (OpenCode, Claude Code, Cursor), refer to their documentation for MCP server configuration using the same command and arguments.
 
 ## Available Tools
 

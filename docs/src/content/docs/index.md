@@ -3,11 +3,20 @@ title: Intro
 description: A collection of Model Context Protocol servers
 ---
 
-Simple, reusable MCP servers for Claude Desktop.
+Simple, reusable MCP servers for AI clients that support the Model Context Protocol.
 
 ## What is MCP Toolbox?
 
-MCP Toolbox is a collection of Model Context Protocol (MCP) servers that extend Claude Desktop with useful tools and integrations.
+MCP Toolbox is a collection of Model Context Protocol (MCP) servers that extend AI clients with useful tools and integrations.
+
+## Supported Clients
+
+These MCP servers work with any client that supports the Model Context Protocol, including:
+
+- **OpenCode** - AI-powered development environment
+- **Claude Desktop** - Anthropic's desktop application
+- **Claude Code** - Anthropic's CLI for Claude
+- **Cursor** - AI-powered code editor
 
 ## Available Servers
 
@@ -28,4 +37,4 @@ bun install
 bun run build
 ```
 
-Add servers to your Claude Desktop configuration and start using them immediately.
+Add servers to your MCP client configuration and start using them immediately.

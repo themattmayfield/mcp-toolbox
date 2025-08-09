@@ -18,6 +18,20 @@
 		"build",
 		"README.md"
 	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/themattmayfield/mcp-toolbox.git",
+		"directory": "packages/weather-server"
+	},
+	"author": "Matt Mayfield",
+	"license": "MIT",
+	"homepage": "https://github.com/themattmayfield/mcp-toolbox#readme",
+	"bugs": {
+		"url": "https://github.com/themattmayfield/mcp-toolbox/issues"
+	},
 	"dependencies": {
 		"@modelcontextprotocol/sdk": "^1.17.2",
 		"@mcp-toolbox/shared": "workspace:*",
@@ -29,9 +43,20 @@
 	},
 	"keywords": [
 		"mcp",
+		"model-context-protocol",
 		"weather",
 		"nws",
+		"national-weather-service",
 		"forecast",
-		"alerts"
-	]
+		"alerts",
+		"ai",
+		"llm",
+		"tools",
+		"server",
+		"climate",
+		"meteorology"
+	],
+	"engines": {
+		"node": ">=18.0.0"
+	}
 }

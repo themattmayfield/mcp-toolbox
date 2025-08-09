@@ -6,7 +6,11 @@ description: How to set up and use MCP Toolbox
 ## Prerequisites
 
 - [Bun](https://bun.sh) (recommended) or Node.js 18+
-- [Claude Desktop](https://claude.ai/desktop)
+- An MCP-compatible client:
+  - [OpenCode](https://opencode.ai) - AI-powered development environment
+  - [Claude Desktop](https://claude.ai/desktop) - Anthropic's desktop application
+  - [Claude Code](https://github.com/anthropics/claude-code) - Anthropic's CLI for Claude
+  - [Cursor](https://cursor.sh) - AI-powered code editor
 
 ## Installation
 
@@ -26,7 +30,9 @@ description: How to set up and use MCP Toolbox
    bun run build
    ```
 
-## Configure Claude Desktop
+## Configure Your MCP Client
+
+### Claude Desktop
 
 Add servers to your Claude Desktop configuration file:
 
@@ -48,10 +54,17 @@ Add servers to your Claude Desktop configuration file:
 }
 ```
 
+### Other MCP Clients
+
+For OpenCode, Claude Code, Cursor, and other MCP-compatible clients, refer to their specific documentation for MCP server configuration. The server command and arguments remain the same:
+
+- **Command:** `node`
+- **Arguments:** `["/path/to/mcp-toolbox/packages/[server-name]/build/index.js"]`
+
 ## Test Your Setup
 
-1. Restart Claude Desktop
-2. Start a new conversation
+1. Restart your MCP client (Claude Desktop, OpenCode, etc.)
+2. Start a new conversation or session
 3. Try asking: "What's the weather in San Francisco?"
 
 The weather server should respond with current weather information.

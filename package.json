@@ -18,10 +18,14 @@
 		"create-server": "bun tools/create-server.ts",
 		"docs:dev": "cd docs && bun run dev",
 		"docs:build": "cd docs && bun run build",
-		"docs:preview": "cd docs && bun run preview"
+		"docs:preview": "cd docs && bun run preview",
+		"changeset": "changeset",
+		"version-packages": "changeset version",
+		"release": "bun run build && changeset publish"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.1.4",
+		"@changesets/cli": "^2.29.5",
 		"@types/bun": "latest",
 		"@types/node": "^24.2.1",
 		"typescript": "^5"
@@ -31,7 +35,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/your-username/mcp-toolbox.git"
+		"url": "https://github.com/themattmayfield/mcp-toolbox.git"
 	},
 	"keywords": [
 		"mcp",
@@ -40,6 +44,6 @@
 		"tools",
 		"monorepo"
 	],
-	"author": "Your Name",
+	"author": "Matt Mayfield",
 	"license": "MIT"
 }

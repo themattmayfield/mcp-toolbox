@@ -279,7 +279,7 @@ async function main() {
 	// List available instances
 	server.tool(
 		"list_instances",
-		"List all configured Unleash instances",
+		"Show all configured Unleash server instances (e.g., production, staging, development). Use this to see what instances are available.",
 		{},
 		async () => {
 			try {
@@ -309,7 +309,7 @@ async function main() {
 	// Create a new feature flag
 	server.tool(
 		"create_feature",
-		"Create a new feature flag in an Unleash instance",
+		"Create a new feature flag and explicitly disable it in all configured environments for the instance. Ensures consistent environment-specific state from creation.",
 		CreateFeatureSchema.shape,
 		async ({ instance, name, description, type, project }) => {
 			try {
@@ -323,6 +323,7 @@ async function main() {
 					impressionData: false,
 				};
 
+				// Create the feature flag
 				const result = await makeUnleashRequest(
 					unleashInstance,
 					`/projects/${projectName}/features`,
@@ -336,9 +337,49 @@ async function main() {
 					return createErrorResponse("Failed to create feature flag");
 				}
 
-				return createSuccessResponse(
-					`✅ Feature flag '${name}' created successfully in ${instance} (${projectName} project)`,
-				);
+				// Get configured environments for this instance
+				const environments = unleashInstance.environments || [];
+
+				if (environments.length > 0) {
+					// Explicitly disable the feature in each configured environment
+					const disablePromises = environments.map(async (env) => {
+						try {
+							await makeUnleashRequest(
+								unleashInstance,
+								`/projects/${projectName}/features/${name}/environments/${env}/off`,
+								{
+									method: "POST",
+								},
+							);
+							return { env, success: true };
+						} catch (error) {
+							console.error(
+								`Failed to disable feature '${name}' in environment '${env}':`,
+								error,
+							);
+							return { env, success: false, error };
+						}
+					});
+
+					const results = await Promise.all(disablePromises);
+					const failed = results.filter((r) => !r.success);
+
+					if (failed.length > 0) {
+						const failedEnvs = failed.map((f) => f.env).join(", ");
+						return createSuccessResponse(
+							`✅ Feature flag '${name}' created successfully in ${instance} (${projectName} project)\n⚠️ Warning: Failed to disable in environments: ${failedEnvs}`,
+						);
+					}
+
+					const envList = environments.join(", ");
+					return createSuccessResponse(
+						`✅ Feature flag '${name}' created successfully in ${instance} (${projectName} project) and disabled in all environments: ${envList}`,
+					);
+				} else {
+					return createSuccessResponse(
+						`✅ Feature flag '${name}' created successfully in ${instance} (${projectName} project)`,
+					);
+				}
 			} catch (error) {
 				console.error("Error creating feature:", error);
 				return createErrorResponse(
@@ -351,7 +392,7 @@ async function main() {
 	// Archive a feature flag
 	server.tool(
 		"archive_feature",
-		"Archive a feature flag in an Unleash instance",
+		"Archive (soft delete) a feature flag when it's no longer needed. Archived flags are hidden from normal views but can be restored if needed.",
 		ArchiveFeatureSchema.shape,
 		async ({ instance, name, project }) => {
 			try {
@@ -360,7 +401,7 @@ async function main() {
 
 				const result = await makeUnleashRequest(
 					unleashInstance,
-					`/projects/${projectName}/features/${name}/archive`,
+					`/projects/${projectName}/features/${name}`,
 					{
 						method: "DELETE",
 					},
@@ -422,7 +463,7 @@ async function main() {
 	// Get feature flag status
 	server.tool(
 		"get_feature_status",
-		"Get the status of a specific feature flag",
+		"Get detailed information about a specific feature flag, including its status across all environments and any configured strategies.",
 		GetFeatureStatusSchema.shape,
 		async ({ instance, name, project, environment }) => {
 			try {
@@ -473,7 +514,7 @@ async function main() {
 	// Toggle feature flag in environment
 	server.tool(
 		"toggle_feature",
-		"Enable or disable a feature flag in a specific environment",
+		"Enable or disable a feature flag in a specific environment (e.g., enable in staging, disable in production). This is how you control where features are active.",
 		ToggleFeatureSchema.shape,
 		async ({ instance, name, environment, enabled, project }) => {
 			try {
@@ -523,7 +564,7 @@ async function main() {
 	// List environments for an instance
 	server.tool(
 		"list_environments",
-		"List all environments in an Unleash instance",
+		"Show all available environments (e.g., development, staging, production) for a specific Unleash instance. Use this to see what environments you can deploy features to.",
 		{
 			instance: InstanceNameSchema,
 			project: ProjectNameSchema,

@@ -28,13 +28,6 @@ export default defineConfig({
 						{ label: "Unleash Server", slug: "servers/unleash" },
 					],
 				},
-				{
-					label: "Development",
-					items: [
-						{ label: "Creating Servers", slug: "development/creating-servers" },
-						{ label: "Shared Utilities", slug: "development/shared-utilities" },
-					],
-				},
 			],
 		}),
 	],
