@@ -555,9 +555,7 @@ async function main() {
 	}
 }
 
-// Only run if this file is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-	main();
-}
+// Run main function when script is executed
+main();
 
 export { InteractiveSetup };
