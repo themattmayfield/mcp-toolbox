@@ -141,7 +141,9 @@ Add to your MCP configuration:
 {
   "mcpServers": {
     "unleash": {
-      "command": "unleash-server-mcp-server"
+      "type": "local",
+      "command": ["unleash-server-mcp-server"],
+      "enabled": true
     }
   }
 }

@@ -57,7 +57,9 @@ Add to your MCP configuration:
 {
   "mcpServers": {
     "weather": {
-      "command": "weather-mcp-server"
+      "type": "local",
+      "command": ["weather-mcp-server"],
+      "enabled": true
     }
   }
 }
