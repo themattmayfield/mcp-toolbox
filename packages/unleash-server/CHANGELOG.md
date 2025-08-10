@@ -1,5 +1,14 @@
 # @mcp-toolbox/unleash-server
 
+## 2.1.3
+
+### Patch Changes
+
+- 5249327: Fix setup script execution in Node.js
+
+  - Replace Bun-specific import.meta.main with Node.js compatible check
+  - This fixes the unleash-server-setup command not running when executed as a binary
+
 ## 2.1.2
 
 ### Patch Changes
