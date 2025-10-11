@@ -32,9 +32,9 @@ export type UnleashConfig = z.infer<typeof UnleashConfigSchema>;
 
 // Configuration file paths (in order of precedence)
 const CONFIG_PATHS = [
-	"./unleash-config.json", // Current directory
-	join(homedir(), ".config", "mcp-toolbox", "unleash.json"), // User config
-	"/etc/mcp-toolbox/unleash.json", // System config
+	"./unleash-toolbox.json", // Current directory
+	join(homedir(), ".config", "mcp-toolbox", "unleash-toolbox.json"), // User config
+	"/etc/mcp-toolbox/unleash-toolbox.json", // System config
 ];
 
 export function getConfigPaths(): string[] {

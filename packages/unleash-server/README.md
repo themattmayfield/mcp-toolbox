@@ -62,7 +62,7 @@ export UNLEASH_INSTANCES='[
 ```
 
 ### Option 3: Config File
-Create `~/.config/mcp-toolbox/unleash.json`:
+Create `~/.config/mcp-toolbox/unleash-toolbox.json`:
 ```json
 {
   "instances": [
@@ -710,7 +710,7 @@ export UNLEASH_URL=https://your-unleash.com
 export UNLEASH_TOKEN=your-admin-token
 
 # Solution 3: Check config file exists
-ls ~/.config/mcp-toolbox/unleash.json
+ls ~/.config/mcp-toolbox/unleash-toolbox.json
 ```
 
 **❌ "Authentication failed - check your API token"**

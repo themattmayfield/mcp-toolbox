@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { CoordinatesSchema, createErrorResponse, createMcpServer, createSuccessResponse, formatCoordinates, makeApiRequest, StateCodeSchema, validateStateCode, } from "@mcp-toolbox/shared";
+
 const NWS_API_BASE = "https://api.weather.gov";
 const USER_AGENT = "weather-app/1.0";
 // Pure functions for business logic

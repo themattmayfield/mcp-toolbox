@@ -1,34 +1,15 @@
 #!/usr/bin/env node
 
-import { makeApiRequest } from "@mcp-toolbox/shared";
 import inquirer from "inquirer";
+import { getUserConfigPath, loadConfigFromFile } from "./config/loader.js";
 import {
 	generateClaudeDesktopConfig,
 	generateEnvVariables,
-	getUserConfigPath,
-	loadConfigFromFile,
 	saveConfigToFile,
-	type UnleashConfig,
-	type UnleashInstance,
-	UnleashInstanceSchema,
-} from "./config.js";
-
-interface UnleashProject {
-	id: string;
-	name: string;
-}
-
-interface UnleashProjectsResponse {
-	projects: UnleashProject[];
-}
-
-interface UnleashEnvironment {
-	name: string;
-}
-
-interface UnleashEnvironmentsResponse {
-	environments: UnleashEnvironment[];
-}
+} from "./config/saver.js";
+import type { UnleashConfig, UnleashInstance } from "./config/types.js";
+import { UnleashInstanceSchema } from "./config/types.js";
+import { testConnection } from "./setup/connection-test.js";
 
 interface SetupAnswers {
 	name: string;
@@ -37,14 +18,6 @@ interface SetupAnswers {
 	project: string;
 	environments?: string[];
 	defaultEnvironment?: string;
-}
-
-interface ConnectionTestResult {
-	success: boolean;
-	error?: string;
-	projects?: string[];
-	environments?: string[];
-	tokenExpiry?: string;
 }
 
 class InteractiveSetup {
@@ -185,7 +158,7 @@ class InteractiveSetup {
 
 		// Test connection
 		console.log("\n🔍 Testing connection...");
-		const testResult = await this.testConnection({
+		const testResult = await testConnection({
 			url: answers.url,
 			token: answers.token,
 			project: answers.project,
@@ -208,13 +181,13 @@ class InteractiveSetup {
 					type: "checkbox",
 					name: "selectedEnvironments",
 					message: "Which environments do you want to use with this instance?",
-					choices: testResult.environments.map((env) => ({
+					choices: testResult.environments.map((env: string) => ({
 						name: env,
 						value: env,
 						checked: true,
 					})),
-					validate: (input: any) => {
-						if (!input || input.length === 0)
+					validate: (input: unknown) => {
+						if (!input || (input as string[]).length === 0)
 							return "Please select at least one environment";
 						return true;
 					},
@@ -278,97 +251,6 @@ class InteractiveSetup {
 
 		console.log("");
 		return instance;
-	}
-
-	private async testConnection(
-		instance: Pick<UnleashInstance, "url" | "token"> & { project?: string },
-	): Promise<ConnectionTestResult> {
-		try {
-			// Test basic connectivity and auth by listing all projects
-			const response = await makeApiRequest<UnleashProjectsResponse>(
-				`${instance.url}/api/admin/projects`,
-				{
-					headers: {
-						Authorization: instance.token,
-						"Content-Type": "application/json",
-					},
-					timeout: 10000,
-					retries: 1,
-				},
-			);
-
-			if (!response) {
-				return { success: false, error: "No response from server" };
-			}
-
-			// Extract project names
-			const projects = response.projects?.map((p) => p.name || p.id) || [];
-
-			// Test access to the specific project that will be used
-			const projectName = instance.project || "default";
-			const projectResponse = await makeApiRequest(
-				`${instance.url}/api/admin/projects/${projectName}`,
-				{
-					headers: {
-						Authorization: instance.token,
-						"Content-Type": "application/json",
-					},
-					timeout: 10000,
-					retries: 1,
-				},
-			);
-
-			if (!projectResponse) {
-				return {
-					success: false,
-					error: `Cannot access project '${projectName}' - check project name and permissions`,
-				};
-			}
-
-			// Try to get environments
-			let environments: string[] = [];
-			try {
-				const envResponse = await makeApiRequest<UnleashEnvironmentsResponse>(
-					`${instance.url}/api/admin/environments`,
-					{
-						headers: {
-							Authorization: instance.token,
-							"Content-Type": "application/json",
-						},
-						timeout: 5000,
-						retries: 1,
-					},
-				);
-				environments = envResponse?.environments?.map((e) => e.name) || [];
-			} catch {
-				// Environments endpoint might not be available, that's ok
-			}
-
-			return {
-				success: true,
-				projects,
-				environments,
-			};
-		} catch (error) {
-			let errorMessage = "Unknown error";
-			if (error instanceof Error) {
-				errorMessage = error.message;
-			}
-
-			// Provide more helpful error messages
-			if (errorMessage.includes("401") || errorMessage.includes("403")) {
-				errorMessage = "Authentication failed - check your API token";
-			} else if (errorMessage.includes("404")) {
-				errorMessage = "Server not found - check your URL";
-			} else if (
-				errorMessage.includes("timeout") ||
-				errorMessage.includes("ECONNREFUSED")
-			) {
-				errorMessage = "Connection timeout - check your URL and network";
-			}
-
-			return { success: false, error: errorMessage };
-		}
 	}
 
 	private async askAddAnother(): Promise<boolean> {
@@ -519,7 +401,7 @@ class InteractiveSetup {
 
 		for (const instance of instances) {
 			console.log(`Testing ${instance.name}...`);
-			const result = await this.testConnection({
+			const result = await testConnection({
 				url: instance.url,
 				token: instance.token,
 				project: instance.project,
