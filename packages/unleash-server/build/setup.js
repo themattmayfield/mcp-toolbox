@@ -15,7 +15,6 @@ import { getUserConfigPath, loadConfigFromFile } from "./config/loader.js";
 import { generateClaudeDesktopConfig, generateEnvVariables, saveConfigToFile, } from "./config/saver.js";
 import { UnleashInstanceSchema } from "./config/types.js";
 import { testConnection } from "./setup/connection-test.js";
-
 class InteractiveSetup {
     instances = [];
     async run() {

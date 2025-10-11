@@ -4,7 +4,7 @@
 - `bun run build` - Build all packages
 - `bun run lint` - Check code with Biome linter
 - `bun run lint:fix` - Fix linting issues automatically
-- `bun run typecheck` - Type check all packages
+- `bun run type-check` - Type check all packages
 - `bun run test` - Run tests for all packages
 - `bun run dev` - Start development mode for all packages
 - `bun run clean` - Clean build artifacts
@@ -13,8 +13,8 @@
 ## Code Style Guidelines
 - **Formatter**: Biome with tab indentation, double quotes
 - **Imports**: Use `.js` extensions for local imports, organize imports automatically
-- **Types**: Define interfaces for all public APIs, use Zod schemas for validation
-- **Naming**: camelCase for variables/functions, PascalCase for types/interfaces
+- **Types**: Use `type` over `interface` for all type definitions, use Zod schemas for validation
+- **Naming**: camelCase for variables/functions, PascalCase for types
 - **Error Handling**: Use try/catch blocks, log errors to stderr with `console.error`
 - **Exports**: Use named exports, barrel exports in index.ts files
 - **File Structure**: Monorepo with packages in `packages/`, shared utilities in `packages/shared`

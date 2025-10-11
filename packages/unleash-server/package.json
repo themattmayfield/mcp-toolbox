@@ -13,7 +13,7 @@
 		"dev": "bun --watch src/index.ts",
 		"start": "bun build/index.js",
 		"setup": "bun src/setup.ts",
-		"typecheck": "tsc --noEmit",
+		"type-check": "tsc --noEmit",
 		"clean": "rm -rf build tsconfig.tsbuildinfo"
 	},
 	"files": [

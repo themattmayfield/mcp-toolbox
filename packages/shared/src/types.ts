@@ -1,26 +1,26 @@
 import { z } from "zod";
 
-export interface McpToolResponse {
+export type McpToolResponse = {
 	[x: string]: unknown;
 	content: Array<{
 		type: "text";
 		text: string;
 	}>;
-}
+};
 
-export interface McpServerConfig {
+export type McpServerConfig = {
 	name: string;
 	version: string;
 	description?: string;
-}
+};
 
-export interface ApiRequestOptions {
+export type ApiRequestOptions = {
 	headers?: Record<string, string>;
 	timeout?: number;
 	retries?: number;
 	method?: string;
 	body?: string;
-}
+};
 
 export const CoordinatesSchema = z.object({
 	latitude: z.number().min(-90).max(90).describe("Latitude of the location"),

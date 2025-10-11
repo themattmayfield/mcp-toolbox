@@ -2,10 +2,10 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import type { McpServerConfig } from "./types.js";
 
-export interface McpServerInstance {
+export type McpServerInstance = {
 	server: McpServer;
 	start: () => Promise<void>;
-}
+};
 
 export function createMcpServer(config: McpServerConfig): McpServerInstance {
 	const server = new McpServer({

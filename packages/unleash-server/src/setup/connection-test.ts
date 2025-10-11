@@ -5,13 +5,13 @@ import type {
 	UnleashProjectsResponse,
 } from "../types.js";
 
-export interface ConnectionTestResult {
+export type ConnectionTestResult = {
 	success: boolean;
 	error?: string;
 	projects?: string[];
 	environments?: string[];
 	tokenExpiry?: string;
-}
+};
 
 /**
  * Tests connection to an Unleash server during interactive setup.

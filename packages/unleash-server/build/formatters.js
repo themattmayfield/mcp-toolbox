@@ -33,7 +33,7 @@ export function formatFeature(feature, filterEnvironment) {
         feature.lastSeenAt
             ? `Last seen: ${new Date(feature.lastSeenAt).toLocaleDateString()}`
             : "",
-        feature.stale ? "⚠️ STALE" : "",
+        feature.stale ? "! STALE" : "",
         "---",
     ]
         .filter(Boolean)
