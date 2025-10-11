@@ -1,5 +1,11 @@
 # @mcp-toolbox/unleash-server
 
+## 2.6.0
+
+### Minor Changes
+
+- 4cfc046: updated documentatino
+
 ## 2.5.0
 
 ### Minor Changes
