@@ -1,3 +1,14 @@
+/**
+ * Formats Unleash feature flags and feature lists for display.
+ *
+ * Provides human-readable formatting with:
+ * - Status indicators (enabled/disabled/archived)
+ * - Environment-specific status when filtering
+ * - Summary statistics (active, disabled, archived, stale counts)
+ * - Date formatting and metadata
+ *
+ * Used by tools that display feature flag information to users.
+ */
 export function formatFeature(feature, filterEnvironment) {
     let status;
     if (feature.archived) {

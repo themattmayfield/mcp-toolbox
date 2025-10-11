@@ -1,4 +1,9 @@
-export interface UnleashFeature {
+/**
+ * TypeScript types for Unleash API responses and data structures.
+ *
+ * These types represent the shape of data returned from the Unleash Admin API.
+ */
+export type UnleashFeature = {
     name: string;
     type: string;
     description?: string;
@@ -12,32 +17,32 @@ export interface UnleashFeature {
     }>;
     createdAt: string;
     lastSeenAt?: string;
-}
-export interface UnleashEnvironment {
+};
+export type UnleashEnvironment = {
     name: string;
     type: string;
     enabled: boolean;
     protected: boolean;
     sortOrder: number;
-}
-export interface UnleashFeatureEnvironment {
+};
+export type UnleashFeatureEnvironment = {
     enabled: boolean;
     strategies?: Array<{
         name: string;
         parameters?: Record<string, unknown>;
     }>;
-}
-export interface UnleashProject {
+};
+export type UnleashProject = {
     id: string;
     name: string;
-}
-export interface UnleashProjectsResponse {
+};
+export type UnleashProjectsResponse = {
     projects: UnleashProject[];
-}
-export interface UnleashEnvironmentsResponse {
+};
+export type UnleashEnvironmentsResponse = {
     environments: UnleashEnvironment[];
-}
-export interface UnleashFeaturesResponse {
+};
+export type UnleashFeaturesResponse = {
     features: UnleashFeature[];
-}
+};
 //# sourceMappingURL=types.d.ts.map

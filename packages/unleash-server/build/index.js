@@ -10,6 +10,7 @@ import { listEnvironmentsTool } from "./tools/list-environments.js";
 import { listFeaturesTool } from "./tools/list-features.js";
 import { listInstancesTool } from "./tools/list-instances.js";
 import { toggleFeatureTool } from "./tools/toggle-feature.js";
+
 let client;
 try {
     const config = loadConfig();

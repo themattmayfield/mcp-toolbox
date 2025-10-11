@@ -1,5 +1,6 @@
 import { createErrorResponse, createSuccessResponse, } from "@mcp-toolbox/shared";
 import { z } from "zod";
+
 const schema = z.object({});
 async function handler(client) {
     try {
