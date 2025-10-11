@@ -2,15 +2,23 @@
 import { createMcpServer } from "@mcp-toolbox/shared";
 import { UnleashClient } from "./client.js";
 import { loadConfig } from "./config/loader.js";
+import { addFeatureStrategyTool } from "./tools/add-feature-strategy.js";
+import { addFeatureTagTool } from "./tools/add-feature-tag.js";
 import { archiveFeatureTool } from "./tools/archive-feature.js";
 import { createFeatureTool } from "./tools/create-feature.js";
+import { createTagTypeTool } from "./tools/create-tag-type.js";
+import { deleteFeatureStrategyTool } from "./tools/delete-feature-strategy.js";
+import { deleteTagTool } from "./tools/delete-tag.js";
+import { deleteTagTypeTool } from "./tools/delete-tag-type.js";
 import { getFeatureStatusTool } from "./tools/get-feature-status.js";
+import { getFeatureTagsTool } from "./tools/get-feature-tags.js";
 import { listAllFeaturesTool } from "./tools/list-all-features.js";
 import { listEnvironmentsTool } from "./tools/list-environments.js";
 import { listFeaturesTool } from "./tools/list-features.js";
 import { listInstancesTool } from "./tools/list-instances.js";
+import { listTagTypesTool } from "./tools/list-tag-types.js";
 import { toggleFeatureTool } from "./tools/toggle-feature.js";
-
+import { updateFeatureStrategyTool } from "./tools/update-feature-strategy.js";
 let client;
 try {
     const config = loadConfig();
@@ -39,6 +47,15 @@ async function main() {
     server.tool(toggleFeatureTool.name, toggleFeatureTool.description, toggleFeatureTool.schema.shape, async (args) => toggleFeatureTool.handler(client, args));
     server.tool(listEnvironmentsTool.name, listEnvironmentsTool.description, listEnvironmentsTool.schema.shape, async (args) => listEnvironmentsTool.handler(client, args));
     server.tool(listAllFeaturesTool.name, listAllFeaturesTool.description, listAllFeaturesTool.schema.shape, async (args) => listAllFeaturesTool.handler(client, args));
+    server.tool(addFeatureTagTool.name, addFeatureTagTool.description, addFeatureTagTool.schema.shape, async (args) => addFeatureTagTool.handler(client, args));
+    server.tool(addFeatureStrategyTool.name, addFeatureStrategyTool.description, addFeatureStrategyTool.schema.shape, async (args) => addFeatureStrategyTool.handler(client, args));
+    server.tool(deleteFeatureStrategyTool.name, deleteFeatureStrategyTool.description, deleteFeatureStrategyTool.schema.shape, async (args) => deleteFeatureStrategyTool.handler(client, args));
+    server.tool(getFeatureTagsTool.name, getFeatureTagsTool.description, getFeatureTagsTool.schema.shape, async (args) => getFeatureTagsTool.handler(client, args));
+    server.tool(updateFeatureStrategyTool.name, updateFeatureStrategyTool.description, updateFeatureStrategyTool.schema.shape, async (args) => updateFeatureStrategyTool.handler(client, args));
+    server.tool(listTagTypesTool.name, listTagTypesTool.description, listTagTypesTool.schema.shape, async (args) => listTagTypesTool.handler(client, args));
+    server.tool(createTagTypeTool.name, createTagTypeTool.description, createTagTypeTool.schema.shape, async (args) => createTagTypeTool.handler(client, args));
+    server.tool(deleteTagTypeTool.name, deleteTagTypeTool.description, deleteTagTypeTool.schema.shape, async (args) => deleteTagTypeTool.handler(client, args));
+    server.tool(deleteTagTool.name, deleteTagTool.description, deleteTagTool.schema.shape, async (args) => deleteTagTool.handler(client, args));
     await start();
 }
 main().catch((error) => {

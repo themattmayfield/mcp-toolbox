@@ -7,15 +7,15 @@ declare const schema: z.ZodObject<{
     enabled: z.ZodBoolean;
     project: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    name: string;
     instance: string;
     environment: string;
+    name: string;
     enabled: boolean;
     project?: string | undefined;
 }, {
-    name: string;
     instance: string;
     environment: string;
+    name: string;
     enabled: boolean;
     project?: string | undefined;
 }>;
@@ -30,15 +30,15 @@ export declare const toggleFeatureTool: {
         enabled: z.ZodBoolean;
         project: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
-        name: string;
         instance: string;
         environment: string;
+        name: string;
         enabled: boolean;
         project?: string | undefined;
     }, {
-        name: string;
         instance: string;
         environment: string;
+        name: string;
         enabled: boolean;
         project?: string | undefined;
     }>;
