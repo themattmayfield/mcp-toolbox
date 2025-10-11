@@ -1,5 +1,16 @@
 # @mcp-toolbox/unleash-server
 
+## 2.7.0
+
+### Minor Changes
+
+- c62da6f: Cleaning house
+
+### Patch Changes
+
+- Updated dependencies [c62da6f]
+  - @mcp-toolbox/shared@2.5.0
+
 ## 2.6.0
 
 ### Minor Changes
