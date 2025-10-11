@@ -13,7 +13,7 @@
     },
     "packages/shared": {
       "name": "@mcp-toolbox/shared",
-      "version": "1.0.0",
+      "version": "2.1.1",
       "dependencies": {
         "@modelcontextprotocol/sdk": "^1.17.2",
         "zod": "^3.25.76",
@@ -25,7 +25,7 @@
     },
     "packages/unleash-server": {
       "name": "@mcp-toolbox/unleash-server",
-      "version": "1.0.0",
+      "version": "2.1.3",
       "bin": {
         "unleash-server-mcp-server": "./build/index.js",
       },
@@ -34,22 +34,6 @@
         "@modelcontextprotocol/sdk": "^1.17.2",
         "@types/inquirer": "^9.0.9",
         "inquirer": "^12.9.1",
-        "zod": "^3.25.76",
-      },
-      "devDependencies": {
-        "@types/node": "^24.2.1",
-        "typescript": "^5",
-      },
-    },
-    "packages/weather-server": {
-      "name": "@mcp-toolbox/weather-server",
-      "version": "1.0.0",
-      "bin": {
-        "weather-mcp-server": "./build/index.js",
-      },
-      "dependencies": {
-        "@mcp-toolbox/shared": "workspace:*",
-        "@modelcontextprotocol/sdk": "^1.17.2",
         "zod": "^3.25.76",
       },
       "devDependencies": {
@@ -150,8 +134,6 @@
     "@mcp-toolbox/shared": ["@mcp-toolbox/shared@workspace:packages/shared"],
 
     "@mcp-toolbox/unleash-server": ["@mcp-toolbox/unleash-server@workspace:packages/unleash-server"],
-
-    "@mcp-toolbox/weather-server": ["@mcp-toolbox/weather-server@workspace:packages/weather-server"],
 
     "@modelcontextprotocol/sdk": ["@modelcontextprotocol/sdk@1.17.2", "", { "dependencies": { "ajv": "^6.12.6", "content-type": "^1.0.5", "cors": "^2.8.5", "cross-spawn": "^7.0.5", "eventsource": "^3.0.2", "eventsource-parser": "^3.0.0", "express": "^5.0.1", "express-rate-limit": "^7.5.0", "pkce-challenge": "^5.0.0", "raw-body": "^3.0.0", "zod": "^3.23.8", "zod-to-json-schema": "^3.24.1" } }, "sha512-EFLRNXR/ixpXQWu6/3Cu30ndDFIFNaqUXcTqsGebujeMan9FzhAaFFswLRiFj61rgygDRr8WO1N+UijjgRxX9g=="],
 
