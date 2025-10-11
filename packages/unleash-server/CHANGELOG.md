@@ -1,5 +1,16 @@
 # @mcp-toolbox/unleash-server
 
+## 2.3.0
+
+### Minor Changes
+
+- 5b3676c: Improved documentation
+
+### Patch Changes
+
+- Updated dependencies [5b3676c]
+  - @mcp-toolbox/shared@2.3.0
+
 ## 2.2.0
 
 ### Minor Changes
