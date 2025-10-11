@@ -2,15 +2,6 @@
 
 A Model Context Protocol server for managing Unleash feature flags across multiple instances and environments. This server provides a simple, user-friendly interface to control your feature flags without needing to access the Unleash web interface directly.
 
-## What is This?
-
-This MCP server connects to your Unleash feature flag service and lets you:
-- **Manage Multiple Environments**: Control features across development, staging, and production
-- **Work with Multiple Instances**: Connect to different Unleash servers (e.g., company-wide, team-specific)
-- **Perform Common Operations**: Create, enable, disable, and archive feature flags
-- **Get Clear Status Information**: See exactly where your features are enabled
-
-Perfect for developers, DevOps engineers, and product managers who want to manage feature flags efficiently.
 
 ## Key Features
 
