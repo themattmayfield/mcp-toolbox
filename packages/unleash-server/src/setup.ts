@@ -230,7 +230,7 @@ class InteractiveSetup {
 				console.log(`🎯 Default environment: ${answers.defaultEnvironment}`);
 			}
 			if (testResult.tokenExpiry) {
-				console.log(`⚠️  Warning: Token expires ${testResult.tokenExpiry}`);
+				console.log(`!  Warning: Token expires ${testResult.tokenExpiry}`);
 			}
 		} else {
 			console.log(`❌ Connection failed: ${testResult.error}`);
@@ -383,19 +383,14 @@ class InteractiveSetup {
 		console.log('     "mcpServers": {');
 		console.log('       "unleash": {');
 		console.log('         "command": "npx",');
-		console.log('         "args": ["@mcp-toolbox/unleash-server"]');
+		console.log('         "args": ["-y", "@mcp-toolbox/unleash-server"]');
 		console.log("       }");
 		console.log("     }");
 		console.log("   }");
 		console.log("");
 		console.log("2. Restart Claude Desktop");
 		console.log("");
-		console.log("3. Try these commands:");
-		console.log("   - list_instances");
-		console.log(`   - list_features instance="${this.instances[0].name}"`);
-		console.log(
-			`   - create_feature instance="${this.instances[0].name}" name="test-feature"`,
-		);
+		console.log("🎉 You're done! 🎉");
 	}
 
 	private async editExistingInstances(
