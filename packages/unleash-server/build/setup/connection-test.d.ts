@@ -1,5 +1,5 @@
 import type { UnleashInstance } from "../config/types.js";
-export type ConnectionTestResult = {
+type ConnectionTestResult = {
     success: boolean;
     error?: string;
     projects?: string[];
@@ -20,4 +20,5 @@ export type ConnectionTestResult = {
 export declare function testConnection(instance: Pick<UnleashInstance, "url" | "token"> & {
     project?: string;
 }): Promise<ConnectionTestResult>;
+export {};
 //# sourceMappingURL=connection-test.d.ts.map

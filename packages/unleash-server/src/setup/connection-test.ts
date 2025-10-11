@@ -5,7 +5,7 @@ import type {
 	UnleashProjectsResponse,
 } from "../types.js";
 
-export type ConnectionTestResult = {
+type ConnectionTestResult = {
 	success: boolean;
 	error?: string;
 	projects?: string[];

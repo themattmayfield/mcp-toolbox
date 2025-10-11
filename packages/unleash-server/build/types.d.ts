@@ -18,7 +18,7 @@ export type UnleashFeature = {
     createdAt: string;
     lastSeenAt?: string;
 };
-export type UnleashEnvironment = {
+type UnleashEnvironment = {
     name: string;
     type: string;
     enabled: boolean;
@@ -32,7 +32,7 @@ export type UnleashFeatureEnvironment = {
         parameters?: Record<string, unknown>;
     }>;
 };
-export type UnleashProject = {
+type UnleashProject = {
     id: string;
     name: string;
 };
@@ -45,4 +45,5 @@ export type UnleashEnvironmentsResponse = {
 export type UnleashFeaturesResponse = {
     features: UnleashFeature[];
 };
+export {};
 //# sourceMappingURL=types.d.ts.map

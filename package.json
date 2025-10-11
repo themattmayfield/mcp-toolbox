@@ -15,21 +15,22 @@
 		"type-check": "bun run --filter='*' type-check",
 		"clean": "bun run --filter='*' clean",
 		"test": "bun run --filter='*' test",
-		"create-server": "bun tools/create-server.ts",
 		"docs:dev": "cd docs && bun run dev",
 		"docs:build": "cd docs && bun run build",
 		"docs:preview": "cd docs && bun run preview",
 		"changeset": "changeset",
 		"version-packages": "changeset version",
 		"release": "bun run build && changeset publish",
-		"test:unleash": "npx @modelcontextprotocol/inspector packages/unleash-server/build/index.js"
+		"test:unleash": "npx @modelcontextprotocol/inspector packages/unleash-server/build/index.js",
+		"knip": "knip"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.1.4",
 		"@changesets/cli": "^2.29.5",
 		"@types/bun": "latest",
-		"@types/node": "^24.2.1",
-		"typescript": "^5"
+		"@types/node": "^24.7.2",
+		"knip": "^5.64.3",
+		"typescript": "^5.9.3"
 	},
 	"engines": {
 		"node": ">=18.0.0"

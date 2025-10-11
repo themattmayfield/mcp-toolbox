@@ -10,9 +10,7 @@
  * Supports both single instance and multi-instance configurations.
  */
 import type { UnleashConfig } from "./types.js";
-export declare function getConfigPaths(): string[];
 export declare function getUserConfigPath(): string;
 export declare function loadConfigFromFile(): UnleashConfig | null;
-export declare function loadConfigFromEnv(): UnleashConfig | null;
 export declare function loadConfig(): UnleashConfig;
 //# sourceMappingURL=loader.d.ts.map

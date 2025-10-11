@@ -13,15 +13,11 @@ import { existsSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { UnleashConfigSchema, UnleashInstanceSchema } from "./types.js";
-
 const CONFIG_PATHS = [
     "./unleash-toolbox.json",
     join(homedir(), ".config", "mcp-toolbox", "unleash-toolbox.json"),
     "/etc/mcp-toolbox/unleash-toolbox.json",
 ];
-export function getConfigPaths() {
-    return CONFIG_PATHS;
-}
 export function getUserConfigPath() {
     return CONFIG_PATHS[1];
 }
@@ -40,7 +36,7 @@ export function loadConfigFromFile() {
     }
     return null;
 }
-export function loadConfigFromEnv() {
+function loadConfigFromEnv() {
     if (process.env.UNLEASH_INSTANCES) {
         try {
             const instances = JSON.parse(process.env.UNLEASH_INSTANCES);
