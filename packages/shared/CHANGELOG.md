@@ -1,5 +1,11 @@
 # @mcp-toolbox/shared
 
+## 2.2.0
+
+### Minor Changes
+
+- e784b4e: ci check
+
 ## 2.1.1
 
 ### Patch Changes

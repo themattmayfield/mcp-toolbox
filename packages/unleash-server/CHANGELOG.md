@@ -1,5 +1,22 @@
 # @mcp-toolbox/unleash-server
 
+## 2.2.0
+
+### Minor Changes
+
+- e784b4e: ci check
+- 15db0e9: doc update
+
+### Patch Changes
+
+- 484d533: Fix setup script execution by always running main function
+
+  - Simplify execution logic to always run main() when script is loaded
+  - This ensures unleash-server-setup command works properly when installed globally
+
+- Updated dependencies [e784b4e]
+  - @mcp-toolbox/shared@2.2.0
+
 ## 2.1.3
 
 ### Patch Changes
