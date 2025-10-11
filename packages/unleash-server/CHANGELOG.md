@@ -1,5 +1,16 @@
 # @mcp-toolbox/unleash-server
 
+## 2.4.0
+
+### Minor Changes
+
+- ea8bd9d: Added new tools for tags
+
+### Patch Changes
+
+- Updated dependencies [ea8bd9d]
+  - @mcp-toolbox/shared@2.4.0
+
 ## 2.3.0
 
 ### Minor Changes
