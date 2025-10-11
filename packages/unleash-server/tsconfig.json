@@ -3,11 +3,7 @@
 	"compilerOptions": {
 		"outDir": "./build",
 		"rootDir": "./src",
-		"composite": true,
-		"paths": {
-			"@mcp-toolbox/shared": ["../shared/src"],
-			"@mcp-toolbox/shared/*": ["../shared/src/*"]
-		}
+		"composite": true
 	},
 	"include": ["src/**/*"],
 	"references": [
