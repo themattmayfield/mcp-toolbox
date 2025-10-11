@@ -5,15 +5,15 @@ declare const schema: z.ZodObject<{
     name: z.ZodString;
     project: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    name: string;
     instance: string;
+    name: string;
     project?: string | undefined;
 }, {
-    name: string;
     instance: string;
+    name: string;
     project?: string | undefined;
 }>;
-declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<any>;
+declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const archiveFeatureTool: {
     name: string;
     description: string;
@@ -22,12 +22,12 @@ export declare const archiveFeatureTool: {
         name: z.ZodString;
         project: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
-        name: string;
         instance: string;
+        name: string;
         project?: string | undefined;
     }, {
-        name: string;
         instance: string;
+        name: string;
         project?: string | undefined;
     }>;
     handler: typeof handler;

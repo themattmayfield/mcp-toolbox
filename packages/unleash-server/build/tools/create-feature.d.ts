@@ -7,19 +7,19 @@ declare const schema: z.ZodObject<{
     type: z.ZodDefault<z.ZodEnum<["release", "experiment", "operational", "kill-switch", "permission"]>>;
     project: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
+    instance: string;
     name: string;
     type: "release" | "experiment" | "operational" | "kill-switch" | "permission";
-    instance: string;
     project?: string | undefined;
     description?: string | undefined;
 }, {
-    name: string;
     instance: string;
-    project?: string | undefined;
+    name: string;
     type?: "release" | "experiment" | "operational" | "kill-switch" | "permission" | undefined;
+    project?: string | undefined;
     description?: string | undefined;
 }>;
-declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<any>;
+declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const createFeatureTool: {
     name: string;
     description: string;
@@ -30,16 +30,16 @@ export declare const createFeatureTool: {
         type: z.ZodDefault<z.ZodEnum<["release", "experiment", "operational", "kill-switch", "permission"]>>;
         project: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
+        instance: string;
         name: string;
         type: "release" | "experiment" | "operational" | "kill-switch" | "permission";
-        instance: string;
         project?: string | undefined;
         description?: string | undefined;
     }, {
-        name: string;
         instance: string;
-        project?: string | undefined;
+        name: string;
         type?: "release" | "experiment" | "operational" | "kill-switch" | "permission" | undefined;
+        project?: string | undefined;
         description?: string | undefined;
     }>;
     handler: typeof handler;

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { UnleashClient } from "../client.js";
-declare function handler(client: UnleashClient): Promise<any>;
+declare function handler(client: UnleashClient): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const listInstancesTool: {
     name: string;
     description: string;

@@ -4,13 +4,13 @@ declare const schema: z.ZodObject<{
     instance: z.ZodString;
     name: z.ZodString;
 }, "strip", z.ZodTypeAny, {
-    name: string;
     instance: string;
+    name: string;
 }, {
-    name: string;
     instance: string;
+    name: string;
 }>;
-declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<any>;
+declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const deleteTagTypeTool: {
     name: string;
     description: string;
@@ -18,11 +18,11 @@ export declare const deleteTagTypeTool: {
         instance: z.ZodString;
         name: z.ZodString;
     }, "strip", z.ZodTypeAny, {
-        name: string;
         instance: string;
+        name: string;
     }, {
-        name: string;
         instance: string;
+        name: string;
     }>;
     handler: typeof handler;
 };

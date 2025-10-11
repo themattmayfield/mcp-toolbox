@@ -7,19 +7,19 @@ declare const schema: z.ZodObject<{
     icon: z.ZodOptional<z.ZodString>;
     color: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    name: string;
     instance: string;
-    color?: string | undefined;
+    name: string;
     description?: string | undefined;
     icon?: string | undefined;
+    color?: string | undefined;
 }, {
-    name: string;
     instance: string;
-    color?: string | undefined;
+    name: string;
     description?: string | undefined;
     icon?: string | undefined;
+    color?: string | undefined;
 }>;
-declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<any>;
+declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const createTagTypeTool: {
     name: string;
     description: string;
@@ -30,17 +30,17 @@ export declare const createTagTypeTool: {
         icon: z.ZodOptional<z.ZodString>;
         color: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
-        name: string;
         instance: string;
-        color?: string | undefined;
+        name: string;
         description?: string | undefined;
         icon?: string | undefined;
+        color?: string | undefined;
     }, {
-        name: string;
         instance: string;
-        color?: string | undefined;
+        name: string;
         description?: string | undefined;
         icon?: string | undefined;
+        color?: string | undefined;
     }>;
     handler: typeof handler;
 };

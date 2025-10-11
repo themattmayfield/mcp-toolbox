@@ -68,11 +68,10 @@ declare const schema: z.ZodObject<{
     segments: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
     project: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    name: string;
     instance: string;
     featureName: string;
     environment: string;
-    project?: string | undefined;
+    name: string;
     title?: string | undefined;
     disabled?: boolean | undefined;
     sortOrder?: number | undefined;
@@ -96,12 +95,12 @@ declare const schema: z.ZodObject<{
         } | undefined;
     }[] | undefined;
     segments?: number[] | undefined;
+    project?: string | undefined;
 }, {
-    name: string;
     instance: string;
     featureName: string;
     environment: string;
-    project?: string | undefined;
+    name: string;
     title?: string | undefined;
     disabled?: boolean | undefined;
     sortOrder?: number | undefined;
@@ -125,8 +124,9 @@ declare const schema: z.ZodObject<{
         } | undefined;
     }[] | undefined;
     segments?: number[] | undefined;
+    project?: string | undefined;
 }>;
-declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<any>;
+declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const addFeatureStrategyTool: {
     name: string;
     description: string;
@@ -198,11 +198,10 @@ export declare const addFeatureStrategyTool: {
         segments: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
         project: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
-        name: string;
         instance: string;
         featureName: string;
         environment: string;
-        project?: string | undefined;
+        name: string;
         title?: string | undefined;
         disabled?: boolean | undefined;
         sortOrder?: number | undefined;
@@ -226,12 +225,12 @@ export declare const addFeatureStrategyTool: {
             } | undefined;
         }[] | undefined;
         segments?: number[] | undefined;
+        project?: string | undefined;
     }, {
-        name: string;
         instance: string;
         featureName: string;
         environment: string;
-        project?: string | undefined;
+        name: string;
         title?: string | undefined;
         disabled?: boolean | undefined;
         sortOrder?: number | undefined;
@@ -255,6 +254,7 @@ export declare const addFeatureStrategyTool: {
             } | undefined;
         }[] | undefined;
         segments?: number[] | undefined;
+        project?: string | undefined;
     }>;
     handler: typeof handler;
 };

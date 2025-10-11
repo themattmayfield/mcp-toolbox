@@ -19,7 +19,7 @@ declare const schema: z.ZodObject<{
     strategyId: string;
     project?: string | undefined;
 }>;
-declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<any>;
+declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const deleteFeatureStrategyTool: {
     name: string;
     description: string;
