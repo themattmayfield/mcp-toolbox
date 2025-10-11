@@ -18,10 +18,7 @@
 			"@mcp-toolbox/shared/*": ["./packages/shared/src/*"]
 		}
 	},
-	"references": [
-		{ "path": "./packages/shared" },
-		{ "path": "./packages/weather-server" }
-	],
+	"references": [{ "path": "./packages/shared" }],
 	"files": [],
 	"include": [],
 	"exclude": ["node_modules", "**/build", "**/dist"]

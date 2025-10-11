@@ -1,6 +1,6 @@
 # Unleash MCP Server
 
-A Model Context Protocol server for managing Unleash feature flags. Control your feature flags across multiple instances and environments without accessing the Unleash web interface.
+A Model Context Protocol server for managing Unleash feature flags.
 
 
 ## Key Features
@@ -10,24 +10,42 @@ A Model Context Protocol server for managing Unleash feature flags. Control your
 - 🚀 **Complete Feature Flag Operations** - Create, toggle, archive, and monitor feature flags
 - 🌍 **Environment Management** - List and understand your deployment environments
 
-## Installation
+## Quick Setup
 
-Install globally via NPM:
+### Step 1: Configure Environment Variables
 
+Choose one of the following options:
+
+#### Option 1: Interactive Setup (Recommended)
+
+First, install the package globally:
 ```bash
 npm install -g @mcp-toolbox/unleash-server
 ```
 
-## Quick Setup
-
-### Option 1: Interactive Setup (Recommended)
+Then run the setup wizard:
 ```bash
 unleash-server-setup
 ```
 
 This will guide you through connecting to your Unleash instances with a friendly interactive wizard.
 
-### Option 2: Environment Variables
+#### Option 2: Config File
+Create `~/.config/mcp-toolbox/unleash-toolbox.json`:
+```json
+{
+  "instances": [
+    {
+      "name": "production",
+      "url": "https://your-unleash.com",
+      "token": "your-admin-token",
+      "project": "default"
+    }
+  ]
+}
+```
+
+#### Option 3: Environment Variables
 ```bash
 # Single instance
 export UNLEASH_URL=https://your-unleash.com
@@ -50,18 +68,32 @@ export UNLEASH_INSTANCES='[
 ]'
 ```
 
-### Option 3: Config File
-Create `~/.config/mcp-toolbox/unleash-toolbox.json`:
+### Step 2: Add to Your Agent
+
+#### opencode
+
 ```json
 {
-  "instances": [
-    {
-      "name": "production",
-      "url": "https://your-unleash.com",
-      "token": "your-admin-token",
-      "project": "default"
+  "mcpServers": {
+    "unleash": {
+      "type": "local",
+      "command": "npx",
+      "args": ["-y", "@mcp-toolbox/unleash-server@latest"],
+      "enabled": true
     }
-  ]
+  }
+}
+```
+
+#### Claude Desktop, Cursor, Windsurf, and other agents
+
+```json
+{
+  "mcpServers": {
+    "unleash": {
+      "command": ["npx", "-y", "@mcp-toolbox/unleash-server@latest"]
+    }
+  }
 }
 ```
 
@@ -73,34 +105,6 @@ You need **Admin API tokens** (or Service Account tokens) with the following per
 - Archive feature flags
 - Read feature flags
 - Manage environments
-
-## Usage
-
-### opencode
-
-```json
-{
-  "mcpServers": {
-    "unleash": {
-      "type": "local",
-      "command": ["unleash-server-mcp-server"],
-      "enabled": true
-    }
-  }
-}
-```
-
-### Claude Desktop, Cursor, Windsurf, and agents
-
-```json
-{
-  "mcpServers": {
-    "unleash": {
-      "command": "unleash-server-mcp-server"
-    }
-  }
-}
-```
 
 ## Interactive Setup Walkthrough
 

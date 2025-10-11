@@ -11,7 +11,6 @@ This guide explains how to test MCP servers in this monorepo before publishing t
   - [3. Claude Desktop Integration](#3-claude-desktop-integration)
 - [Package-Specific Testing](#package-specific-testing)
   - [Unleash Server](#unleash-server)
-  - [Weather Server](#weather-server)
 - [Troubleshooting](#troubleshooting)
 
 ## Prerequisites
@@ -45,8 +44,6 @@ npx @modelcontextprotocol/inspector <path-to-built-server>
 # Example: Test unleash-server
 npx @modelcontextprotocol/inspector packages/unleash-server/build/index.js
 
-# Example: Test weather-server
-npx @modelcontextprotocol/inspector packages/weather-server/build/index.js
 ```
 
 #### Features
@@ -189,22 +186,6 @@ UNLEASH_PROJECT=default \
 npx @modelcontextprotocol/inspector packages/unleash-server/build/index.js
 ```
 
-### Weather Server
-
-#### Test with Inspector
-
-```bash
-npx @modelcontextprotocol/inspector packages/weather-server/build/index.js
-```
-
-#### Test Available Tools
-
-- `get-forecast` - Get weather forecast for a location
-- `get-alerts` - Get weather alerts
-
-#### No Configuration Required
-
-The weather server uses public APIs and doesn't require API keys or setup.
 
 ## Troubleshooting
 
