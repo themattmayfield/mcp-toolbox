@@ -5,7 +5,7 @@
 	"type": "module",
 	"main": "build/index.js",
 	"bin": {
-		"unleash-server-mcp-server": "./build/index.js",
+		"@mcp-toolbox/unleash-server": "./build/index.js",
 		"unleash-server-setup": "./build/setup.js"
 	},
 	"scripts": {
