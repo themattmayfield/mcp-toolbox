@@ -1,5 +1,11 @@
 # @mcp-toolbox/unleash-server
 
+## 2.8.0
+
+### Minor Changes
+
+- 1bfa1ec: clean wizard
+
 ## 2.7.0
 
 ### Minor Changes
