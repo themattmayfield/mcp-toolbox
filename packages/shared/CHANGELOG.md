@@ -1,5 +1,11 @@
 # @mcp-toolbox/shared
 
+## 2.5.0
+
+### Minor Changes
+
+- c62da6f: Cleaning house
+
 ## 2.4.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@mcp-toolbox/shared",
-	"version": "2.4.0",
+	"version": "2.5.0",
 	"description": "Shared utilities and types for MCP servers",
 	"type": "module",
 	"main": "build/index.js",
