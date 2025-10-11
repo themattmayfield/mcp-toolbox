@@ -20,7 +20,7 @@ export type UnleashFeature = {
 	lastSeenAt?: string;
 };
 
-export type UnleashEnvironment = {
+type UnleashEnvironment = {
 	name: string;
 	type: string;
 	enabled: boolean;
@@ -36,7 +36,7 @@ export type UnleashFeatureEnvironment = {
 	}>;
 };
 
-export type UnleashProject = {
+type UnleashProject = {
 	id: string;
 	name: string;
 };

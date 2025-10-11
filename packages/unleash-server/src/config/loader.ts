@@ -22,10 +22,6 @@ const CONFIG_PATHS = [
 	"/etc/mcp-toolbox/unleash-toolbox.json",
 ];
 
-export function getConfigPaths(): string[] {
-	return CONFIG_PATHS;
-}
-
 export function getUserConfigPath(): string {
 	return CONFIG_PATHS[1];
 }
@@ -45,7 +41,7 @@ export function loadConfigFromFile(): UnleashConfig | null {
 	return null;
 }
 
-export function loadConfigFromEnv(): UnleashConfig | null {
+function loadConfigFromEnv(): UnleashConfig | null {
 	if (process.env.UNLEASH_INSTANCES) {
 		try {
 			const instances = JSON.parse(process.env.UNLEASH_INSTANCES);
