@@ -1,5 +1,11 @@
 # @mcp-toolbox/unleash-server
 
+## 2.5.0
+
+### Minor Changes
+
+- 63c1d0c: update bin
+
 ## 2.4.0
 
 ### Minor Changes
