@@ -1,3 +1,14 @@
+/**
+ * Saves Unleash server configuration to files and generates configuration snippets.
+ *
+ * Provides utilities to:
+ * - Save configuration to JSON files
+ * - Generate environment variable snippets for shell
+ * - Generate Claude Desktop configuration snippets
+ *
+ * Used by the interactive setup wizard to persist user configuration choices.
+ */
+
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { getUserConfigPath } from "./loader.js";

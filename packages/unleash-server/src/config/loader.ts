@@ -1,3 +1,15 @@
+/**
+ * Loads Unleash server configuration from environment variables or config files.
+ *
+ * Configuration is loaded in this order of precedence:
+ * 1. Environment variables (UNLEASH_URL, UNLEASH_TOKEN, or UNLEASH_INSTANCES JSON)
+ * 2. Local config file (./unleash-config.json)
+ * 3. User config file (~/.config/mcp-toolbox/unleash.json)
+ * 4. System config file (/etc/mcp-toolbox/unleash.json)
+ *
+ * Supports both single instance and multi-instance configurations.
+ */
+
 import { existsSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";

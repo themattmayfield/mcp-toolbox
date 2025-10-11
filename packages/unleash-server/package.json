@@ -14,7 +14,7 @@
 		"start": "bun build/index.js",
 		"setup": "bun src/setup.ts",
 		"typecheck": "tsc --noEmit",
-		"clean": "rm -rf build"
+		"clean": "rm -rf build tsconfig.tsbuildinfo"
 	},
 	"files": [
 		"build",
