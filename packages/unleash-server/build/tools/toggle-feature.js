@@ -1,6 +1,5 @@
 import { createErrorResponse, createSuccessResponse, } from "@mcp-toolbox/shared";
 import { z } from "zod";
-
 const schema = z.object({
     instance: z.string().describe("Name of the Unleash instance to use"),
     name: z.string().min(1).describe("Name of the feature flag"),

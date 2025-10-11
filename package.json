@@ -21,7 +21,8 @@
 		"docs:preview": "cd docs && bun run preview",
 		"changeset": "changeset",
 		"version-packages": "changeset version",
-		"release": "bun run build && changeset publish"
+		"release": "bun run build && changeset publish",
+		"test:unleash": "npx @modelcontextprotocol/inspector packages/unleash-server/build/index.js"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.1.4",

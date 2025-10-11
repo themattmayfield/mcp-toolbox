@@ -1,0 +1,65 @@
+import {
+	createErrorResponse,
+	createSuccessResponse,
+} from "@mcp-toolbox/shared";
+import { z } from "zod";
+import type { UnleashClient } from "../client.js";
+
+const schema = z.object({
+	instance: z.string().describe("Name of the Unleash instance to use"),
+	featureName: z.string().min(1).describe("Name of the feature flag"),
+	environment: z.string().describe("Environment name"),
+	strategyId: z.string().describe("Strategy ID to delete"),
+	project: z
+		.string()
+		.optional()
+		.describe("Project name (uses instance default if not specified)"),
+});
+
+async function handler(client: UnleashClient, args: z.infer<typeof schema>) {
+	try {
+		const { instance, featureName, environment, strategyId, project } = args;
+		const unleashInstance = client.getInstance(instance);
+		const projectName = client.getProjectName(unleashInstance, project);
+
+		if (
+			unleashInstance.environments &&
+			unleashInstance.environments.length > 0
+		) {
+			if (!unleashInstance.environments.includes(environment)) {
+				return createErrorResponse(
+					`Environment '${environment}' is not configured for instance '${instance}'. Available environments: ${unleashInstance.environments.join(", ")}`,
+				);
+			}
+		}
+
+		const result = await client.makeRequest(
+			unleashInstance,
+			`/projects/${projectName}/features/${featureName}/environments/${environment}/strategies/${strategyId}`,
+			{
+				method: "DELETE",
+			},
+		);
+
+		if (!result) {
+			return createErrorResponse("Failed to delete strategy from feature flag");
+		}
+
+		return createSuccessResponse(
+			`✅ Strategy '${strategyId}' deleted from feature flag '${featureName}' in ${environment} environment (${instance} - ${projectName} project)`,
+		);
+	} catch (error) {
+		console.error("Error deleting strategy from feature:", error);
+		return createErrorResponse(
+			`Failed to delete strategy from feature flag: ${error instanceof Error ? error.message : "Unknown error"}`,
+		);
+	}
+}
+
+export const deleteFeatureStrategyTool = {
+	name: "delete_feature_strategy",
+	description:
+		"Delete a strategy from a feature flag in a specific environment.",
+	schema,
+	handler,
+};

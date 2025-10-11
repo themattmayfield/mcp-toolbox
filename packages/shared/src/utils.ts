@@ -32,7 +32,10 @@ export async function makeApiRequest<T>(
 			clearTimeout(timeoutId);
 
 			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`);
+				const errorBody = await response.text().catch(() => "");
+				throw new Error(
+					`HTTP error! status: ${response.status}${errorBody ? `, body: ${errorBody}` : ""}`,
+				);
 			}
 
 			// Handle empty responses (like DELETE requests)

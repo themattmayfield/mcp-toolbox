@@ -122,14 +122,30 @@ The setup wizard will:
 
 ## Available Tools
 
+### Instance & Environment Management
 - **list_instances** - Shows all configured Unleash servers
+- **list_environments** - Shows all available environments in an instance
+
+### Feature Flag Management
 - **list_features** - Shows all feature flags with their status in a specific environment
-- **get_feature_status** - Gets detailed information about a specific feature flag
 - **list_all_features** - Shows feature flags with global status (not environment-specific)
+- **get_feature_status** - Gets detailed information about a specific feature flag
 - **create_feature** - Creates a new feature flag (automatically disabled in all environments)
 - **toggle_feature** - Enables or disables a feature flag in a specific environment
 - **archive_feature** - Archives a feature flag when no longer needed
-- **list_environments** - Shows all available environments in an instance
+
+### Strategy Management
+- **add_feature_strategy** - Add a strategy to a feature flag in a specific environment
+- **update_feature_strategy** - Update a strategy on a feature flag in a specific environment
+- **delete_feature_strategy** - Delete a strategy from a feature flag in a specific environment
+
+### Tag Management
+- **list_tag_types** - List all available tag types in an instance
+- **create_tag_type** - Create a new tag type
+- **delete_tag_type** - Delete a tag type
+- **add_feature_tag** - Add a tag to a feature flag
+- **get_feature_tags** - Get all tags for a feature flag
+- **delete_tag** - Delete a tag from all features
 
 ## API Reference
 

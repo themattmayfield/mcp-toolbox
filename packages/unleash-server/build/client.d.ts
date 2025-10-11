@@ -39,9 +39,9 @@ export declare class UnleashClient {
      */
     getAllInstances(): {
         name: string;
+        project: string;
         url: string;
         token: string;
-        project: string;
         timeout: number;
         retries: number;
         environments?: string[] | undefined;
