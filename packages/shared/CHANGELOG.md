@@ -1,5 +1,11 @@
 # @mcp-toolbox/shared
 
+## 2.4.0
+
+### Minor Changes
+
+- ea8bd9d: Added new tools for tags
+
 ## 2.3.0
 
 ### Minor Changes
