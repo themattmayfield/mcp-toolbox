@@ -1,5 +1,11 @@
 # @mcp-toolbox/unleash-server
 
+## 2.9.0
+
+### Minor Changes
+
+- 0cb13bb: knip
+
 ## 2.8.0
 
 ### Minor Changes
