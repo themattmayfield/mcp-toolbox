@@ -1,5 +1,11 @@
 # @mcp-toolbox/unleash-server
 
+## 3.0.0
+
+### Major Changes
+
+- 05fe7b0: Update setup w/ opencode snippet
+
 ## 2.9.0
 
 ### Minor Changes
