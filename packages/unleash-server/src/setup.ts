@@ -388,6 +388,17 @@ class InteractiveSetup {
 		console.log("     }");
 		console.log("   }");
 		console.log("");
+		console.log("   Or for opencode users, add to opencode.json:");
+		console.log("   {");
+		console.log('     "unleash": {');
+		console.log('       "type": "local",');
+		console.log(
+			'       "command": ["npx", "-y", "@mcp-toolbox/unleash-server@latest"],',
+		);
+		console.log('       "enabled": true');
+		console.log("     }");
+		console.log("   }");
+		console.log("");
 		console.log("2. Restart Claude Desktop");
 		console.log("");
 		console.log("🎉 You're done! 🎉");
