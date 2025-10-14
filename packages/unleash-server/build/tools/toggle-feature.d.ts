@@ -6,21 +6,23 @@ declare const schema: z.ZodObject<{
     environment: z.ZodString;
     enabled: z.ZodBoolean;
     project: z.ZodOptional<z.ZodString>;
-    confirmed: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+    confirmed: any;
 }, "strip", z.ZodTypeAny, {
-    instance: string;
-    name: string;
-    confirmed: boolean;
-    environment: string;
-    enabled: boolean;
-    project?: string | undefined;
+    [x: string]: any;
+    instance?: unknown;
+    name?: unknown;
+    environment?: unknown;
+    enabled?: unknown;
+    project?: unknown;
+    confirmed?: unknown;
 }, {
-    instance: string;
-    name: string;
-    environment: string;
-    enabled: boolean;
-    project?: string | undefined;
-    confirmed?: boolean | undefined;
+    [x: string]: any;
+    instance?: unknown;
+    name?: unknown;
+    environment?: unknown;
+    enabled?: unknown;
+    project?: unknown;
+    confirmed?: unknown;
 }>;
 declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const toggleFeatureTool: {
@@ -32,21 +34,23 @@ export declare const toggleFeatureTool: {
         environment: z.ZodString;
         enabled: z.ZodBoolean;
         project: z.ZodOptional<z.ZodString>;
-        confirmed: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+        confirmed: any;
     }, "strip", z.ZodTypeAny, {
-        instance: string;
-        name: string;
-        confirmed: boolean;
-        environment: string;
-        enabled: boolean;
-        project?: string | undefined;
+        [x: string]: any;
+        instance?: unknown;
+        name?: unknown;
+        environment?: unknown;
+        enabled?: unknown;
+        project?: unknown;
+        confirmed?: unknown;
     }, {
-        instance: string;
-        name: string;
-        environment: string;
-        enabled: boolean;
-        project?: string | undefined;
-        confirmed?: boolean | undefined;
+        [x: string]: any;
+        instance?: unknown;
+        name?: unknown;
+        environment?: unknown;
+        enabled?: unknown;
+        project?: unknown;
+        confirmed?: unknown;
     }>;
     handler: typeof handler;
 };

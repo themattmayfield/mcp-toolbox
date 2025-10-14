@@ -10,9 +10,9 @@ export declare const UnleashInstanceSchema: z.ZodObject<{
     defaultEnvironment: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     name: string;
-    project: string;
     url: string;
     token: string;
+    project: string;
     timeout: number;
     retries: number;
     environments?: string[] | undefined;
@@ -39,9 +39,9 @@ export declare const UnleashConfigSchema: z.ZodObject<{
         defaultEnvironment: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
         name: string;
-        project: string;
         url: string;
         token: string;
+        project: string;
         timeout: number;
         retries: number;
         environments?: string[] | undefined;
@@ -59,9 +59,9 @@ export declare const UnleashConfigSchema: z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     instances: {
         name: string;
-        project: string;
         url: string;
         token: string;
+        project: string;
         timeout: number;
         retries: number;
         environments?: string[] | undefined;

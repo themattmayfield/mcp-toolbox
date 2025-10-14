@@ -6,21 +6,23 @@ declare const schema: z.ZodObject<{
     environment: z.ZodString;
     strategyId: z.ZodString;
     project: z.ZodOptional<z.ZodString>;
-    confirmed: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+    confirmed: any;
 }, "strip", z.ZodTypeAny, {
-    instance: string;
-    confirmed: boolean;
-    featureName: string;
-    environment: string;
-    strategyId: string;
-    project?: string | undefined;
+    [x: string]: any;
+    instance?: unknown;
+    featureName?: unknown;
+    environment?: unknown;
+    strategyId?: unknown;
+    project?: unknown;
+    confirmed?: unknown;
 }, {
-    instance: string;
-    featureName: string;
-    environment: string;
-    strategyId: string;
-    project?: string | undefined;
-    confirmed?: boolean | undefined;
+    [x: string]: any;
+    instance?: unknown;
+    featureName?: unknown;
+    environment?: unknown;
+    strategyId?: unknown;
+    project?: unknown;
+    confirmed?: unknown;
 }>;
 declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const deleteFeatureStrategyTool: {
@@ -32,21 +34,23 @@ export declare const deleteFeatureStrategyTool: {
         environment: z.ZodString;
         strategyId: z.ZodString;
         project: z.ZodOptional<z.ZodString>;
-        confirmed: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+        confirmed: any;
     }, "strip", z.ZodTypeAny, {
-        instance: string;
-        confirmed: boolean;
-        featureName: string;
-        environment: string;
-        strategyId: string;
-        project?: string | undefined;
+        [x: string]: any;
+        instance?: unknown;
+        featureName?: unknown;
+        environment?: unknown;
+        strategyId?: unknown;
+        project?: unknown;
+        confirmed?: unknown;
     }, {
-        instance: string;
-        featureName: string;
-        environment: string;
-        strategyId: string;
-        project?: string | undefined;
-        confirmed?: boolean | undefined;
+        [x: string]: any;
+        instance?: unknown;
+        featureName?: unknown;
+        environment?: unknown;
+        strategyId?: unknown;
+        project?: unknown;
+        confirmed?: unknown;
     }>;
     handler: typeof handler;
 };

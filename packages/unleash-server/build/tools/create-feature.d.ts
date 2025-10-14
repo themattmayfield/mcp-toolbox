@@ -7,14 +7,14 @@ declare const schema: z.ZodObject<{
     type: z.ZodDefault<z.ZodEnum<["release", "experiment", "operational", "kill-switch", "permission"]>>;
     project: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    instance: string;
     name: string;
     type: "release" | "experiment" | "operational" | "kill-switch" | "permission";
+    instance: string;
     project?: string | undefined;
     description?: string | undefined;
 }, {
-    instance: string;
     name: string;
+    instance: string;
     project?: string | undefined;
     type?: "release" | "experiment" | "operational" | "kill-switch" | "permission" | undefined;
     description?: string | undefined;
@@ -30,14 +30,14 @@ export declare const createFeatureTool: {
         type: z.ZodDefault<z.ZodEnum<["release", "experiment", "operational", "kill-switch", "permission"]>>;
         project: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
-        instance: string;
         name: string;
         type: "release" | "experiment" | "operational" | "kill-switch" | "permission";
+        instance: string;
         project?: string | undefined;
         description?: string | undefined;
     }, {
-        instance: string;
         name: string;
+        instance: string;
         project?: string | undefined;
         type?: "release" | "experiment" | "operational" | "kill-switch" | "permission" | undefined;
         description?: string | undefined;

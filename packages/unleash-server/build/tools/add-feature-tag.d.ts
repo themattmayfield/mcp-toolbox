@@ -7,15 +7,15 @@ declare const schema: z.ZodObject<{
     value: z.ZodString;
     color: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    instance: string;
     value: string;
     type: string;
+    instance: string;
     featureName: string;
     color?: string | undefined;
 }, {
-    instance: string;
     value: string;
     type: string;
+    instance: string;
     featureName: string;
     color?: string | undefined;
 }>;
@@ -30,15 +30,15 @@ export declare const addFeatureTagTool: {
         value: z.ZodString;
         color: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
-        instance: string;
         value: string;
         type: string;
+        instance: string;
         featureName: string;
         color?: string | undefined;
     }, {
-        instance: string;
         value: string;
         type: string;
+        instance: string;
         featureName: string;
         color?: string | undefined;
     }>;

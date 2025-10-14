@@ -68,8 +68,8 @@ declare const schema: z.ZodObject<{
     segments: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
     project: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    instance: string;
     name: string;
+    instance: string;
     featureName: string;
     environment: string;
     project?: string | undefined;
@@ -97,8 +97,8 @@ declare const schema: z.ZodObject<{
     }[] | undefined;
     segments?: number[] | undefined;
 }, {
-    instance: string;
     name: string;
+    instance: string;
     featureName: string;
     environment: string;
     project?: string | undefined;
@@ -198,8 +198,8 @@ export declare const addFeatureStrategyTool: {
         segments: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
         project: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
-        instance: string;
         name: string;
+        instance: string;
         featureName: string;
         environment: string;
         project?: string | undefined;
@@ -227,8 +227,8 @@ export declare const addFeatureStrategyTool: {
         }[] | undefined;
         segments?: number[] | undefined;
     }, {
-        instance: string;
         name: string;
+        instance: string;
         featureName: string;
         environment: string;
         project?: string | undefined;

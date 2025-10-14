@@ -1,0 +1,1 @@
+{"version":3,"file":"env-token-provider.js","sourceRoot":"","sources":["../../src/examples/env-token-provider.ts"],"names":[],"mappings":"AAEA,eAAe;IACd,cAAc,EAAE,KAAK,IAAI,EAAE;QAC1B,MAAM,KAAK,GAAG,OAAO,CAAC,GAAG,CAAC,oBAAoB,CAAC;QAC/C,IAAI,CAAC,KAAK,EAAE,CAAC;YACZ,MAAM,IAAI,KAAK,CAAC,sDAAsD,CAAC,CAAC;QACzE,CAAC;QACD,OAAO,KAAK,CAAC;IACd,CAAC;CAC8B,CAAC"}

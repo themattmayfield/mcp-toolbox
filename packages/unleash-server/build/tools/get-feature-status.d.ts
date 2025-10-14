@@ -6,13 +6,13 @@ declare const schema: z.ZodObject<{
     project: z.ZodOptional<z.ZodString>;
     environment: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    instance: string;
     name: string;
+    instance: string;
     project?: string | undefined;
     environment?: string | undefined;
 }, {
-    instance: string;
     name: string;
+    instance: string;
     project?: string | undefined;
     environment?: string | undefined;
 }>;
@@ -26,13 +26,13 @@ export declare const getFeatureStatusTool: {
         project: z.ZodOptional<z.ZodString>;
         environment: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
-        instance: string;
         name: string;
+        instance: string;
         project?: string | undefined;
         environment?: string | undefined;
     }, {
-        instance: string;
         name: string;
+        instance: string;
         project?: string | undefined;
         environment?: string | undefined;
     }>;

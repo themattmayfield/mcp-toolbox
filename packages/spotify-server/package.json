@@ -1,0 +1,46 @@
+{
+	"name": "@mcp-toolbox/spotify-server",
+	"version": "0.1.0",
+	"description": "MCP server for Spotify API integration with flexible token management",
+	"type": "module",
+	"main": "./build/index.js",
+	"types": "./build/index.d.ts",
+	"bin": {
+		"spotify-server": "./build/index.js",
+		"spotify-setup": "./build/setup.js"
+	},
+	"files": [
+		"build",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc && chmod +x build/index.js build/setup.js",
+		"dev": "tsc --watch",
+		"clean": "rm -rf build tsconfig.tsbuildinfo",
+		"setup": "bun run build && node ./build/setup.js"
+	},
+	"dependencies": {
+		"@mcp-toolbox/shared": "workspace:*",
+		"@modelcontextprotocol/sdk": "^1.0.4",
+		"inquirer": "^12.2.0",
+		"zod": "^3.24.1"
+	},
+	"devDependencies": {
+		"@types/inquirer": "^9.0.7",
+		"@types/node": "^22.10.2",
+		"typescript": "^5.7.3"
+	},
+	"keywords": [
+		"mcp",
+		"spotify",
+		"model-context-protocol",
+		"llm",
+		"ai"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/yourusername/mcp-toolbox.git",
+		"directory": "packages/spotify-server"
+	},
+	"license": "MIT"
+}

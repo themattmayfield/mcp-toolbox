@@ -4,17 +4,19 @@ declare const schema: z.ZodObject<{
     instance: z.ZodString;
     name: z.ZodString;
     project: z.ZodOptional<z.ZodString>;
-    confirmed: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+    confirmed: any;
 }, "strip", z.ZodTypeAny, {
-    instance: string;
-    name: string;
-    confirmed: boolean;
-    project?: string | undefined;
+    [x: string]: any;
+    instance?: unknown;
+    name?: unknown;
+    project?: unknown;
+    confirmed?: unknown;
 }, {
-    instance: string;
-    name: string;
-    project?: string | undefined;
-    confirmed?: boolean | undefined;
+    [x: string]: any;
+    instance?: unknown;
+    name?: unknown;
+    project?: unknown;
+    confirmed?: unknown;
 }>;
 declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const archiveFeatureTool: {
@@ -24,17 +26,19 @@ export declare const archiveFeatureTool: {
         instance: z.ZodString;
         name: z.ZodString;
         project: z.ZodOptional<z.ZodString>;
-        confirmed: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+        confirmed: any;
     }, "strip", z.ZodTypeAny, {
-        instance: string;
-        name: string;
-        confirmed: boolean;
-        project?: string | undefined;
+        [x: string]: any;
+        instance?: unknown;
+        name?: unknown;
+        project?: unknown;
+        confirmed?: unknown;
     }, {
-        instance: string;
-        name: string;
-        project?: string | undefined;
-        confirmed?: boolean | undefined;
+        [x: string]: any;
+        instance?: unknown;
+        name?: unknown;
+        project?: unknown;
+        confirmed?: unknown;
     }>;
     handler: typeof handler;
 };
