@@ -1,5 +1,16 @@
 # @mcp-toolbox/unleash-server
 
+## 3.1.0
+
+### Minor Changes
+
+- 21b2b02: add confirmation
+
+### Patch Changes
+
+- Updated dependencies [21b2b02]
+  - @mcp-toolbox/shared@2.6.0
+
 ## 3.0.0
 
 ### Major Changes

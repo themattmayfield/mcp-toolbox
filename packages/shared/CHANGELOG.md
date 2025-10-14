@@ -1,5 +1,11 @@
 # @mcp-toolbox/shared
 
+## 2.6.0
+
+### Minor Changes
+
+- 21b2b02: add confirmation
+
 ## 2.5.0
 
 ### Minor Changes
