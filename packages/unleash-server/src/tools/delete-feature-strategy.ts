@@ -1,6 +1,7 @@
 import {
 	createErrorResponse,
 	createSuccessResponse,
+	ConfirmationSchema,
 } from "@mcp-toolbox/shared";
 import { z } from "zod";
 import type { UnleashClient } from "../client.js";
@@ -14,11 +15,19 @@ const schema = z.object({
 		.string()
 		.optional()
 		.describe("Project name (uses instance default if not specified)"),
+	confirmed: ConfirmationSchema,
 });
 
 async function handler(client: UnleashClient, args: z.infer<typeof schema>) {
 	try {
-		const { instance, featureName, environment, strategyId, project } = args;
+		const {
+			instance,
+			featureName,
+			environment,
+			strategyId,
+			project,
+			confirmed,
+		} = args;
 		const unleashInstance = client.getInstance(instance);
 		const projectName = client.getProjectName(unleashInstance, project);
 
@@ -31,6 +40,21 @@ async function handler(client: UnleashClient, args: z.infer<typeof schema>) {
 					`Environment '${environment}' is not configured for instance '${instance}'. Available environments: ${unleashInstance.environments.join(", ")}`,
 				);
 			}
+		}
+
+		if (!confirmed) {
+			return createErrorResponse(`⚠️  CONFIRMATION REQUIRED
+
+You are about to DELETE a strategy:
+- Feature: ${featureName}
+- Environment: ${environment}
+- Strategy ID: ${strategyId}
+- Instance: ${instance}
+- Project: ${projectName}
+
+This will permanently remove this strategy from the feature flag.
+
+To proceed, call this tool again with confirmed=true`);
 		}
 
 		const result = await client.makeRequest(
@@ -59,7 +83,7 @@ async function handler(client: UnleashClient, args: z.infer<typeof schema>) {
 export const deleteFeatureStrategyTool = {
 	name: "delete_feature_strategy",
 	description:
-		"Delete a strategy from a feature flag in a specific environment.",
+		"Delete a strategy from a feature flag in a specific environment. REQUIRES USER CONFIRMATION: You must call this tool twice - first without confirmed parameter to see what will happen, then ask the user to confirm, then call again with confirmed=true.",
 	schema,
 	handler,
 };

@@ -135,21 +135,56 @@ The setup wizard will:
 - **list_all_features** - Shows feature flags with global status (not environment-specific)
 - **get_feature_status** - Gets detailed information about a specific feature flag
 - **create_feature** - Creates a new feature flag (automatically disabled in all environments)
-- **toggle_feature** - Enables or disables a feature flag in a specific environment
-- **archive_feature** - Archives a feature flag when no longer needed
+- **toggle_feature** - Enables or disables a feature flag in a specific environment ⚠️ *Requires confirmation*
+- **archive_feature** - Archives a feature flag when no longer needed ⚠️ *Requires confirmation*
 
 ### Strategy Management
 - **add_feature_strategy** - Add a strategy to a feature flag in a specific environment
-- **update_feature_strategy** - Update a strategy on a feature flag in a specific environment
-- **delete_feature_strategy** - Delete a strategy from a feature flag in a specific environment
+- **update_feature_strategy** - Update a strategy on a feature flag in a specific environment ⚠️ *Requires confirmation*
+- **delete_feature_strategy** - Delete a strategy from a feature flag in a specific environment ⚠️ *Requires confirmation*
 
 ### Tag Management
 - **list_tag_types** - List all available tag types in an instance
 - **create_tag_type** - Create a new tag type
-- **delete_tag_type** - Delete a tag type
+- **delete_tag_type** - Delete a tag type ⚠️ *Requires confirmation*
 - **add_feature_tag** - Add a tag to a feature flag
 - **get_feature_tags** - Get all tags for a feature flag
-- **delete_tag** - Delete a tag from all features
+- **delete_tag** - Delete a tag from all features ⚠️ *Requires confirmation*
+
+## Safety Features
+
+### Two-Step Confirmation for Destructive Actions
+
+To prevent accidental changes to your feature flags, the following operations require explicit confirmation:
+
+- **Toggling feature flags** (enable/disable)
+- **Archiving feature flags**
+- **Updating strategies**
+- **Deleting strategies**
+- **Deleting tags and tag types**
+
+#### How It Works
+
+1. **First Call** - When you attempt a destructive action without confirmation:
+   ```
+   ⚠️  CONFIRMATION REQUIRED
+   
+   You are about to DISABLE a feature flag:
+   - Feature: new-checkout
+   - Environment: production
+   - Instance: production
+   - Project: default
+   
+   This will deactivate this feature for users in the production environment.
+   
+   To proceed, call this tool again with confirmed=true
+   ```
+
+2. **Second Call** - To confirm, call the same tool again with `confirmed=true`:
+   - The action will be executed immediately
+   - No additional confirmation needed
+
+This two-step process ensures you always have a chance to review critical changes before they're applied.
 
 ## API Reference
 

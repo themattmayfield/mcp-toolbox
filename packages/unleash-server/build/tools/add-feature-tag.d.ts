@@ -8,15 +8,15 @@ declare const schema: z.ZodObject<{
     color: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     instance: string;
-    featureName: string;
     value: string;
     type: string;
+    featureName: string;
     color?: string | undefined;
 }, {
     instance: string;
-    featureName: string;
     value: string;
     type: string;
+    featureName: string;
     color?: string | undefined;
 }>;
 declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
@@ -31,15 +31,15 @@ export declare const addFeatureTagTool: {
         color: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
         instance: string;
-        featureName: string;
         value: string;
         type: string;
+        featureName: string;
         color?: string | undefined;
     }, {
         instance: string;
-        featureName: string;
         value: string;
         type: string;
+        featureName: string;
         color?: string | undefined;
     }>;
     handler: typeof handler;

@@ -11,4 +11,9 @@ export const StateCodeSchema = z
     .string()
     .length(2)
     .describe("Two-letter state code (e.g. CA, NY)");
+export const ConfirmationSchema = z
+    .boolean()
+    .optional()
+    .default(false)
+    .describe("IMPORTANT: Must be set to true to confirm this action. Do NOT automatically set this to true - you MUST ask the user for explicit confirmation first.");
 //# sourceMappingURL=types.js.map

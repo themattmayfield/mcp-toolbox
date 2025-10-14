@@ -6,12 +6,12 @@ declare const schema: z.ZodObject<{
     environment: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     instance: string;
-    environment?: string | undefined;
     project?: string | undefined;
+    environment?: string | undefined;
 }, {
     instance: string;
-    environment?: string | undefined;
     project?: string | undefined;
+    environment?: string | undefined;
 }>;
 declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const listFeaturesTool: {
@@ -23,12 +23,12 @@ export declare const listFeaturesTool: {
         environment: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
         instance: string;
-        environment?: string | undefined;
         project?: string | undefined;
+        environment?: string | undefined;
     }, {
         instance: string;
-        environment?: string | undefined;
         project?: string | undefined;
+        environment?: string | undefined;
     }>;
     handler: typeof handler;
 };

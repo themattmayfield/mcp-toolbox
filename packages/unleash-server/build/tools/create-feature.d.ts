@@ -15,8 +15,8 @@ declare const schema: z.ZodObject<{
 }, {
     instance: string;
     name: string;
-    type?: "release" | "experiment" | "operational" | "kill-switch" | "permission" | undefined;
     project?: string | undefined;
+    type?: "release" | "experiment" | "operational" | "kill-switch" | "permission" | undefined;
     description?: string | undefined;
 }>;
 declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
@@ -38,8 +38,8 @@ export declare const createFeatureTool: {
     }, {
         instance: string;
         name: string;
-        type?: "release" | "experiment" | "operational" | "kill-switch" | "permission" | undefined;
         project?: string | undefined;
+        type?: "release" | "experiment" | "operational" | "kill-switch" | "permission" | undefined;
         description?: string | undefined;
     }>;
     handler: typeof handler;

@@ -10,14 +10,14 @@ declare const schema: z.ZodObject<{
     instance: string;
     name: string;
     description?: string | undefined;
-    icon?: string | undefined;
     color?: string | undefined;
+    icon?: string | undefined;
 }, {
     instance: string;
     name: string;
     description?: string | undefined;
-    icon?: string | undefined;
     color?: string | undefined;
+    icon?: string | undefined;
 }>;
 declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const createTagTypeTool: {
@@ -33,14 +33,14 @@ export declare const createTagTypeTool: {
         instance: string;
         name: string;
         description?: string | undefined;
-        icon?: string | undefined;
         color?: string | undefined;
+        icon?: string | undefined;
     }, {
         instance: string;
         name: string;
         description?: string | undefined;
-        icon?: string | undefined;
         color?: string | undefined;
+        icon?: string | undefined;
     }>;
     handler: typeof handler;
 };

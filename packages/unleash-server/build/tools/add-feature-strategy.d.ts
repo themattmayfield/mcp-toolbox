@@ -69,9 +69,10 @@ declare const schema: z.ZodObject<{
     project: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     instance: string;
+    name: string;
     featureName: string;
     environment: string;
-    name: string;
+    project?: string | undefined;
     title?: string | undefined;
     disabled?: boolean | undefined;
     sortOrder?: number | undefined;
@@ -95,12 +96,12 @@ declare const schema: z.ZodObject<{
         } | undefined;
     }[] | undefined;
     segments?: number[] | undefined;
-    project?: string | undefined;
 }, {
     instance: string;
+    name: string;
     featureName: string;
     environment: string;
-    name: string;
+    project?: string | undefined;
     title?: string | undefined;
     disabled?: boolean | undefined;
     sortOrder?: number | undefined;
@@ -124,7 +125,6 @@ declare const schema: z.ZodObject<{
         } | undefined;
     }[] | undefined;
     segments?: number[] | undefined;
-    project?: string | undefined;
 }>;
 declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const addFeatureStrategyTool: {
@@ -199,9 +199,10 @@ export declare const addFeatureStrategyTool: {
         project: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
         instance: string;
+        name: string;
         featureName: string;
         environment: string;
-        name: string;
+        project?: string | undefined;
         title?: string | undefined;
         disabled?: boolean | undefined;
         sortOrder?: number | undefined;
@@ -225,12 +226,12 @@ export declare const addFeatureStrategyTool: {
             } | undefined;
         }[] | undefined;
         segments?: number[] | undefined;
-        project?: string | undefined;
     }, {
         instance: string;
+        name: string;
         featureName: string;
         environment: string;
-        name: string;
+        project?: string | undefined;
         title?: string | undefined;
         disabled?: boolean | undefined;
         sortOrder?: number | undefined;
@@ -254,7 +255,6 @@ export declare const addFeatureStrategyTool: {
             } | undefined;
         }[] | undefined;
         segments?: number[] | undefined;
-        project?: string | undefined;
     }>;
     handler: typeof handler;
 };

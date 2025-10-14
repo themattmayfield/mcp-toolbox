@@ -1,4 +1,4 @@
-import { createErrorResponse, createSuccessResponse, } from "@mcp-toolbox/shared";
+import { createErrorResponse, createSuccessResponse, ConfirmationSchema, } from "@mcp-toolbox/shared";
 import { z } from "zod";
 const schema = z.object({
     instance: z.string().describe("Name of the Unleash instance to use"),
@@ -9,10 +9,11 @@ const schema = z.object({
         .string()
         .optional()
         .describe("Project name (uses instance default if not specified)"),
+    confirmed: ConfirmationSchema,
 });
 async function handler(client, args) {
     try {
-        const { instance, name, environment, enabled, project } = args;
+        const { instance, name, environment, enabled, project, confirmed } = args;
         const unleashInstance = client.getInstance(instance);
         const projectName = client.getProjectName(unleashInstance, project);
         if (unleashInstance.environments &&
@@ -20,6 +21,20 @@ async function handler(client, args) {
             if (!unleashInstance.environments.includes(environment)) {
                 return createErrorResponse(`Environment '${environment}' is not configured for instance '${instance}'. Available environments: ${unleashInstance.environments.join(", ")}`);
             }
+        }
+        if (!confirmed) {
+            const actionVerb = enabled ? "enable" : "disable";
+            return createErrorResponse(`⚠️  CONFIRMATION REQUIRED
+
+You are about to ${actionVerb.toUpperCase()} a feature flag:
+- Feature: ${name}
+- Environment: ${environment}
+- Instance: ${instance}
+- Project: ${projectName}
+
+This will ${enabled ? "activate" : "deactivate"} this feature for users in the ${environment} environment.
+
+To proceed, call this tool again with confirmed=true`);
         }
         const action = enabled ? "on" : "off";
         const result = await client.makeRequest(unleashInstance, `/projects/${projectName}/features/${name}/environments/${environment}/${action}`, {
@@ -38,7 +53,7 @@ async function handler(client, args) {
 }
 export const toggleFeatureTool = {
     name: "toggle_feature",
-    description: "Enable or disable a feature flag in a specific environment (e.g., enable in staging, disable in production). This is how you control where features are active.",
+    description: "Enable or disable a feature flag in a specific environment (e.g., enable in staging, disable in production). This is how you control where features are active. REQUIRES USER CONFIRMATION: You must call this tool twice - first without confirmed parameter to see what will happen, then ask the user to confirm, then call again with confirmed=true.",
     schema,
     handler,
 };
