@@ -183,7 +183,7 @@ class InteractiveSetup {
                 console.log(`🎯 Default environment: ${answers.defaultEnvironment}`);
             }
             if (testResult.tokenExpiry) {
-                console.log(`⚠️  Warning: Token expires ${testResult.tokenExpiry}`);
+                console.log(`!  Warning: Token expires ${testResult.tokenExpiry}`);
             }
         }
         else {
@@ -315,17 +315,23 @@ class InteractiveSetup {
         console.log('     "mcpServers": {');
         console.log('       "unleash": {');
         console.log('         "command": "npx",');
-        console.log('         "args": ["@mcp-toolbox/unleash-server"]');
+        console.log('         "args": ["-y", "@mcp-toolbox/unleash-server"]');
         console.log("       }");
+        console.log("     }");
+        console.log("   }");
+        console.log("");
+        console.log("   Or for opencode users, add to opencode.json:");
+        console.log("   {");
+        console.log('     "unleash": {');
+        console.log('       "type": "local",');
+        console.log('       "command": ["npx", "-y", "@mcp-toolbox/unleash-server@latest"],');
+        console.log('       "enabled": true');
         console.log("     }");
         console.log("   }");
         console.log("");
         console.log("2. Restart Claude Desktop");
         console.log("");
-        console.log("3. Try these commands:");
-        console.log("   - list_instances");
-        console.log(`   - list_features instance="${this.instances[0].name}"`);
-        console.log(`   - create_feature instance="${this.instances[0].name}" name="test-feature"`);
+        console.log("🎉 You're done! 🎉");
     }
     async editExistingInstances(_instances) {
         // TODO: Implement editing existing instances

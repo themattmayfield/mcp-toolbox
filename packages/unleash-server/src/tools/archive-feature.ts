@@ -1,6 +1,7 @@
 import {
 	createErrorResponse,
 	createSuccessResponse,
+	ConfirmationSchema,
 } from "@mcp-toolbox/shared";
 import { z } from "zod";
 import type { UnleashClient } from "../client.js";
@@ -12,13 +13,27 @@ const schema = z.object({
 		.string()
 		.optional()
 		.describe("Project name (uses instance default if not specified)"),
+	confirmed: ConfirmationSchema,
 });
 
 async function handler(client: UnleashClient, args: z.infer<typeof schema>) {
 	try {
-		const { instance, name, project } = args;
+		const { instance, name, project, confirmed } = args;
 		const unleashInstance = client.getInstance(instance);
 		const projectName = client.getProjectName(unleashInstance, project);
+
+		if (!confirmed) {
+			return createErrorResponse(`⚠️  CONFIRMATION REQUIRED
+
+You are about to ARCHIVE a feature flag:
+- Feature: ${name}
+- Instance: ${instance}
+- Project: ${projectName}
+
+This will soft-delete the feature flag. It will be hidden from normal views but can be restored if needed.
+
+To proceed, call this tool again with confirmed=true`);
+		}
 
 		const result = await client.makeRequest(
 			unleashInstance,
@@ -46,7 +61,7 @@ async function handler(client: UnleashClient, args: z.infer<typeof schema>) {
 export const archiveFeatureTool = {
 	name: "archive_feature",
 	description:
-		"Archive (soft delete) a feature flag when it's no longer needed. Archived flags are hidden from normal views but can be restored if needed.",
+		"Archive (soft delete) a feature flag when it's no longer needed. Archived flags are hidden from normal views but can be restored if needed. REQUIRES USER CONFIRMATION: You must call this tool twice - first without confirmed parameter to see what will happen, then ask the user to confirm, then call again with confirmed=true.",
 	schema,
 	handler,
 };

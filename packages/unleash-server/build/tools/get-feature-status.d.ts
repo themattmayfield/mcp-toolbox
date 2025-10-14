@@ -8,13 +8,13 @@ declare const schema: z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     instance: string;
     name: string;
-    environment?: string | undefined;
     project?: string | undefined;
+    environment?: string | undefined;
 }, {
     instance: string;
     name: string;
-    environment?: string | undefined;
     project?: string | undefined;
+    environment?: string | undefined;
 }>;
 declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const getFeatureStatusTool: {
@@ -28,13 +28,13 @@ export declare const getFeatureStatusTool: {
     }, "strip", z.ZodTypeAny, {
         instance: string;
         name: string;
-        environment?: string | undefined;
         project?: string | undefined;
+        environment?: string | undefined;
     }, {
         instance: string;
         name: string;
-        environment?: string | undefined;
         project?: string | undefined;
+        environment?: string | undefined;
     }>;
     handler: typeof handler;
 };

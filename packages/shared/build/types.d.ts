@@ -31,4 +31,5 @@ export declare const CoordinatesSchema: z.ZodObject<{
 export type Coordinates = z.infer<typeof CoordinatesSchema>;
 export declare const StateCodeSchema: z.ZodString;
 export type StateCode = z.infer<typeof StateCodeSchema>;
+export declare const ConfirmationSchema: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
 //# sourceMappingURL=types.d.ts.map

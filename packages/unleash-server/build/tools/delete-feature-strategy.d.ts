@@ -6,8 +6,10 @@ declare const schema: z.ZodObject<{
     environment: z.ZodString;
     strategyId: z.ZodString;
     project: z.ZodOptional<z.ZodString>;
+    confirmed: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
 }, "strip", z.ZodTypeAny, {
     instance: string;
+    confirmed: boolean;
     featureName: string;
     environment: string;
     strategyId: string;
@@ -18,6 +20,7 @@ declare const schema: z.ZodObject<{
     environment: string;
     strategyId: string;
     project?: string | undefined;
+    confirmed?: boolean | undefined;
 }>;
 declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const deleteFeatureStrategyTool: {
@@ -29,8 +32,10 @@ export declare const deleteFeatureStrategyTool: {
         environment: z.ZodString;
         strategyId: z.ZodString;
         project: z.ZodOptional<z.ZodString>;
+        confirmed: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
     }, "strip", z.ZodTypeAny, {
         instance: string;
+        confirmed: boolean;
         featureName: string;
         environment: string;
         strategyId: string;
@@ -41,6 +46,7 @@ export declare const deleteFeatureStrategyTool: {
         environment: string;
         strategyId: string;
         project?: string | undefined;
+        confirmed?: boolean | undefined;
     }>;
     handler: typeof handler;
 };

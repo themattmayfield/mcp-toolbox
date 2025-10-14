@@ -68,11 +68,13 @@ declare const schema: z.ZodObject<{
     }>, "many">>;
     segments: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
     project: z.ZodOptional<z.ZodString>;
+    confirmed: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
 }, "strip", z.ZodTypeAny, {
     instance: string;
     featureName: string;
     environment: string;
     strategyId: string;
+    confirmed: boolean;
     name?: string | undefined;
     title?: string | undefined;
     disabled?: boolean | undefined;
@@ -128,6 +130,7 @@ declare const schema: z.ZodObject<{
     }[] | undefined;
     segments?: number[] | undefined;
     project?: string | undefined;
+    confirmed?: boolean | undefined;
 }>;
 declare function handler(client: UnleashClient, args: z.infer<typeof schema>): Promise<import("@mcp-toolbox/shared").McpToolResponse>;
 export declare const updateFeatureStrategyTool: {
@@ -201,11 +204,13 @@ export declare const updateFeatureStrategyTool: {
         }>, "many">>;
         segments: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
         project: z.ZodOptional<z.ZodString>;
+        confirmed: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
     }, "strip", z.ZodTypeAny, {
         instance: string;
         featureName: string;
         environment: string;
         strategyId: string;
+        confirmed: boolean;
         name?: string | undefined;
         title?: string | undefined;
         disabled?: boolean | undefined;
@@ -261,6 +266,7 @@ export declare const updateFeatureStrategyTool: {
         }[] | undefined;
         segments?: number[] | undefined;
         project?: string | undefined;
+        confirmed?: boolean | undefined;
     }>;
     handler: typeof handler;
 };

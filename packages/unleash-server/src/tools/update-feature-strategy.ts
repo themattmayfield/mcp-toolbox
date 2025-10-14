@@ -1,6 +1,7 @@
 import {
 	createErrorResponse,
 	createSuccessResponse,
+	ConfirmationSchema,
 } from "@mcp-toolbox/shared";
 import { z } from "zod";
 import type { UnleashClient } from "../client.js";
@@ -50,6 +51,7 @@ const schema = z.object({
 		.string()
 		.optional()
 		.describe("Project name (uses instance default if not specified)"),
+	confirmed: ConfirmationSchema,
 });
 
 async function handler(client: UnleashClient, args: z.infer<typeof schema>) {
@@ -68,6 +70,7 @@ async function handler(client: UnleashClient, args: z.infer<typeof schema>) {
 			variants,
 			segments,
 			project,
+			confirmed,
 		} = args;
 		const unleashInstance = client.getInstance(instance);
 		const projectName = client.getProjectName(unleashInstance, project);
@@ -81,6 +84,21 @@ async function handler(client: UnleashClient, args: z.infer<typeof schema>) {
 					`Environment '${environment}' is not configured for instance '${instance}'. Available environments: ${unleashInstance.environments.join(", ")}`,
 				);
 			}
+		}
+
+		if (!confirmed) {
+			return createErrorResponse(`⚠️  CONFIRMATION REQUIRED
+
+You are about to UPDATE a strategy:
+- Feature: ${featureName}
+- Environment: ${environment}
+- Strategy ID: ${strategyId}
+- Instance: ${instance}
+- Project: ${projectName}
+
+This will modify the strategy configuration on this feature flag.
+
+To proceed, call this tool again with confirmed=true`);
 		}
 
 		const strategyData = {
@@ -121,7 +139,7 @@ async function handler(client: UnleashClient, args: z.infer<typeof schema>) {
 export const updateFeatureStrategyTool = {
 	name: "update_feature_strategy",
 	description:
-		"Update a strategy on a feature flag in a specific environment. Only provide fields you want to update.",
+		"Update a strategy on a feature flag in a specific environment. Only provide fields you want to update. REQUIRES USER CONFIRMATION: You must call this tool twice - first without confirmed parameter to see what will happen, then ask the user to confirm, then call again with confirmed=true.",
 	schema,
 	handler,
 };
